@@ -1,7 +1,7 @@
 {
     "name": "goopil/rest-filter-scopes",
     "description": "set of eloquent scopes to implements various rest query strings",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "type": "library",
     "license": "MIT",
     "authors": [{

@@ -20,20 +20,29 @@ abstract class BaseScope implements ScopeInterface
     /**
      * @var string $primarySeparator
      */
-    protected $primarySeparator = ';';
+    protected $primarySeparator;
 
     /**
      * @var string $secondarySeparator
      */
-    protected $secondarySeparator = ':';
+    protected $secondarySeparator;
 
     /**
      * BaseScope constructor.
      * @param Request $request
+     * @param array $separators
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request, $separators = ['primary' => ';', 'secondary' => ':'])
     {
-        $this->request = $request;
+        if (array_diff_key(array_flip(['primary', 'secondary']), $separators) > 0) {
+            throw new \InvalidArgumentException('primary or secondary key missing');
+        } elseif ($separators['primary'] === $separators['secondary']) {
+            throw new \InvalidArgumentException('the primary and secondary keys can\'t be the same');
+        }
+
+        $this->request = $request !== null ? $request : Request::capture();
+        $this->primarySeparator = $separators['primary'];
+        $this->secondarySeparator = $separators['secondary'];
     }
 
     /**

@@ -24,6 +24,11 @@ class RestScopes implements ScopeInterface
      */
     protected $request;
 
+    protected $delimiters = [
+        'primary' => ';',
+        'secondary' => ':'
+    ];
+
     /**
      * @var array $scopes
      */
@@ -46,6 +51,29 @@ class RestScopes implements ScopeInterface
     }
 
     /**
+     * @param array $delimiters
+     * @return $this
+     */
+    public function setDelimiters(array $delimiters)
+    {
+        $this->delimiters = $delimiters;
+
+        return $this;
+    }
+
+    /**
+     * @param $name
+     * @param $value
+     * @return $this
+     */
+    public function setDelimiter($name, $value)
+    {
+        $this->delimiters[$name] = $value;
+
+        return $this;
+    }
+
+    /**
      * scopes getters
      * @return array
      */
@@ -57,23 +85,30 @@ class RestScopes implements ScopeInterface
     /**
      * reset and set scopes to be executed
      * @param $scopes string|array
+     * @return $this
      */
     public function setScopes ($scopes)
     {
         $scopes = is_array($scopes) ? $scopes : func_get_args();
         $this->scopes = [];
         $this->assemble($scopes);
+
+        return $this;
     }
 
     /**
      * add scopes to existing ones
      * @param $scopes string|array
+     * @return $this
      */
     public function addScopes ($scopes)
     {
         $scopes = is_array($scopes) ? $scopes : func_get_args();
         $this->assemble($scopes);
+
+        return $this;
     }
+
 
     /**
      * assemble scopes
@@ -82,7 +117,7 @@ class RestScopes implements ScopeInterface
     protected function assemble(array $scopes)
     {
         $errors = [];
-        array_walk($scopes, function($scope) use ($errors) {
+        foreach($scopes as $scope) {
             if ($scope instanceof ScopeInterface) {
                 if (!in_array($scope, $this->scopes)) {
                     $this->scopes[] = $scope;
@@ -90,7 +125,7 @@ class RestScopes implements ScopeInterface
             } else {
                 $errors[] = 'The class '. get_class($scope) . 'doesn\'t implements ' . ScopeInterface::class;
             }
-        });
+        }
 
         if (sizeof($errors) > 0) {
             throw new \InvalidArgumentException(implode(' \n', $errors));
@@ -105,7 +140,7 @@ class RestScopes implements ScopeInterface
     public function apply(Builder $builder, Model $model)
     {
         foreach ($this->scopes as $scope) {
-            $current = new $scope($this->request);
+            $current = new $scope($this->request, $this->delimiters);
             $builder = $current->apply($builder, $model);
         }
 

@@ -1,6 +1,6 @@
 # Rest api scopes
-This [Eloquent](https://laravel.com/docs/5.3/eloquent) package implements some current REST filters passed via query string. And map them in form of scope.  
-This is mainly an extract of what was done in [andersao/l5-repository](https://github.com/andersao/l5-repository) in term of query but to the model itself not via a repository.
+This package map some usual REST query filters to [Eloquent](https://laravel.com/docs/5.3/eloquent) scopes.  
+This is mainly an extract of the filter present in [andersao/l5-repository](https://github.com/andersao/l5-repository). but attachable to the model itself not used via repositories.  
 A big thanks to the previous contributors for their great work ;)
 
 * [Search](#search)
@@ -15,7 +15,7 @@ A big thanks to the previous contributors for their great work ;)
 `composer require goopil/rest-query-scopes`
 
 ## declaration
-### On a controller basis registration
+### In Controllers
 ```php
 use App\User;
 use Goopil\RestFilter\RestScopes;
@@ -44,7 +44,7 @@ MyController extends Controller
 ```
 
 
-### global registration (in model)
+### In Models
 ```php
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Goopil\RestFilter\RestScopes;
@@ -54,7 +54,6 @@ MyModel extends Eloquent
     public static function boot () 
     {
         parent::boot();
-        
         static::addGlobalScope(new RestScopes);
     }
 }
@@ -62,9 +61,9 @@ MyModel extends Eloquent
 
 you can also use `Goopil\RestFilter\Contracts\Queryable` which will hook itself in the Eloquent boot process to register the filters.
 
-# Api rest query syntax
+# query syntax
 ### parameters format
-The parameters support array or string with delimiters.
+The parameters support array or string with delimiters.  
 so this is valid  
 `http://exemple.com/api/v1/users?search[1]=John&search[2]=Tom`  
 and this too  
@@ -158,16 +157,17 @@ this interface simply specify a `searchable()` method on the model. That will re
 | sortedBy | string | {desc}
 
 ## include
-`http://exemple.com/api/v1/users?include=roles`  
-`http://exemple.com/api/v1/users?include=roles;sessions`
-`http://exemple.com/api/v1/users?include=roles.permissions;sessions`
+`http://exemple.com/api/v1/users?include=roles` 
+`http://exemple.com/api/v1/users?include=roles;sessions`  
+`http://exemple.com/api/v1/users?include=roles.permissions;sessions`  
 
 | name | type | format |
 | :---: | :---: | :---: |
 | include | string | {field1} ; {value1}
 
 ## pagination
-The `Goopil\RestFilter\Contracts\Paginable` rewrite the static `all()` method to parse the request for `page` & `perPage` params and call the right method if they're present.
+The `Goopil\RestFilter\Contracts\Paginable` rewrite the static `all()` method  
+to parse the request for `page` & `perPage` params and call the `paginate()` method instead if needed.
  
 `http://exemple.com/api/v1/users?page=1`  
 `http://exemple.com/api/v1/users?page=1&perPage=20`  
@@ -205,15 +205,14 @@ as per laravel pagination
 | in | ids | string with delimiter or array of int 
 
 ##### exclusive in notIn filter
-The notIn array has precedence over the in array 
+The `notIn` array has precedence over the `in` array 
 `http://exemple.com/api/v1/users?in=1;2;3;4;5;6&notIn=2`
 
 ```json
  [
      { "name": "user1", "id": 1 },
      { "name": "user3", "id": 3 },
-     { "name": "user4", "id": 4 },
-     { "name": "user5", "id": 5 }
+    ...
  ]
 ```
 
@@ -223,9 +222,9 @@ The notIn array has precedence over the in array
 | notIn | id | string with delimiter or array of int
 
 ## range selector
-`http://exemple.com/api/v1/users?offset=10`
-`http://exemple.com/api/v1/users?limit=20`
-`http://exemple.com/api/v1/users?offset=10&limit=20`
+`http://exemple.com/api/v1/users?offset=10`  
+`http://exemple.com/api/v1/users?limit=20`  
+`http://exemple.com/api/v1/users?offset=10&limit=20`  
 
 | name | field | format | default
 | :---: | :---: | :---: | :---: |
@@ -236,8 +235,4 @@ The notIn array has precedence over the in array
 If you find a bug or want to report somethings just drop an issue.
 
 ## contributions
-Contributions are welcome. Just fork it and do a PR.
-
-## todo
-- [ ] add some tests
-- [ ] extract documentation in static file ?
+Contributions are very welcome. Just fork it and do a PR.

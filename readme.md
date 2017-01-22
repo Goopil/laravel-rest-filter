@@ -57,6 +57,7 @@ MyModel extends Eloquent
     }
 }
 ```
+or you can use the `Goopil\RestFilter\Contracts\Queryable` to hook the RestScope in the boot process of eloquent.
 
 # Api rest query syntax
 ## parameters format

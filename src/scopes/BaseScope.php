@@ -32,9 +32,11 @@ abstract class BaseScope implements ScopeInterface
      * @param Request $request
      * @param array $separators
      */
-    public function __construct(Request $request, $separators = ['primary' => ';', 'secondary' => ':'])
+    public function __construct(Request $request, $separators = null)
     {
-        if (array_diff_key(array_flip(['primary', 'secondary']), $separators) > 0) {
+        $separators = $separators === null ? ['primary' => ';', 'secondary' => ':'] : $separators;
+
+        if (!array_key_exists('primary', $separators) || !array_key_exists('secondary', $separators)) {
             throw new \InvalidArgumentException('primary or secondary key missing');
         } elseif ($separators['primary'] === $separators['secondary']) {
             throw new \InvalidArgumentException('the primary and secondary keys can\'t be the same');

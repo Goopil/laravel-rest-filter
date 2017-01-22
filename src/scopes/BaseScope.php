@@ -31,14 +31,9 @@ abstract class BaseScope implements ScopeInterface
      * BaseScope constructor.
      * @param null $request
      */
-//    public function __construct($request = null)
-//    {
-//        $this->request = $request === null ? $request : app(Request::class);
-//    }
-
-    public function __construct(Request $request)
+    public function __construct($request = null)
     {
-        $this->request = $request;
+        $this->request = $request === null ? $request : app(Request::class);
     }
 
     /**

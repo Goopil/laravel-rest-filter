@@ -1,6 +1,5 @@
 <?php
 namespace Goopil\RestFilter\Contracts;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 /**
@@ -12,13 +11,7 @@ trait Paginable
     public static function all($columns = ['*'])
     {
         $columns = is_array($columns) ? $columns : func_get_args();
-        /**
-         * @var $instance Model
-         */
         $instance = new static;
-        /**
-         * @var $request Request
-         */
         $request = Request::capture();
 
         return $request->has('page') ?

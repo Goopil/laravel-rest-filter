@@ -60,7 +60,7 @@ class RestScopes implements ScopeInterface
      */
     public function setScopes ($scopes)
     {
-        $scopes = is_string($scopes) ? func_get_args() : $scopes;
+        $scopes = is_array($scopes) ? $scopes : func_get_args();
         $this->scopes = [];
         $this->assemble($scopes);
     }
@@ -71,7 +71,7 @@ class RestScopes implements ScopeInterface
      */
     public function addScopes ($scopes)
     {
-        $scopes = is_string($scopes) ? func_get_args() : $scopes;
+        $scopes = is_array($scopes) ? $scopes : func_get_args();
         $this->assemble($scopes);
     }
 

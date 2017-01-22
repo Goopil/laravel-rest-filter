@@ -1,10 +1,12 @@
 # Rest api scopes
-This package provide a set of scopes to implement somes query filter. It is greatly inspired by the package [andersao/l5-repository](https://github.com/andersao/l5-repository)
-The multi filter implemented in this packages a really great but not the repository pattern it use. So long story short this is just an extract of the filters in Eloqent scopes.
- 
-## usage 
-### installation
+This package provide a set of scopes to implement somes query filter. It is greatly inspired by the package [andersao/l5-repository](https://github.com/andersao/l5-repository) (A big thanks to him for his great work ;) )  
+
+The multi filter implemented in this packages a really great but not the repository pattern it use. So long story short, this is just an extract of the filters in Eloquent scopes with some minors adjustments & additions.
+
+## installation
 `composer require goopil/rest-query-scopes`
+
+## usage
 ### On a controller basis registration
 ```
 use App\User;
@@ -12,9 +14,25 @@ use Goopil\RestFilter\RestScopes;
 
 MyController extends Controller
 {
+    public function __construct() 
+    {
+        // global constructor registration
+        User::addGlobalScope(new RestScopes);
+    }
+
     public function index ()
     {
-        User::addGlobalScope(app(RestScopes::class));
+        // per method registration
+        User::addGlobalScope(new RestScopes);
+        return response()->json([
+            success => true,
+            data => User::all()
+        ]);
+    }
+    
+    public function index (MyCustomRequest $r)
+    {
+        User::addGlobalScope(new RestScopes($r));
         return response()->json([
             success => true,
             data => User::all()
@@ -22,6 +40,10 @@ MyController extends Controller
     }
  }
 ```
+
+you can pass the current request if you use it in the method.
+The package will fetch the current request if null is provided.
+So if you do have a request object you should pass it to it.
 
 ### global registration (in model)
 ```
@@ -139,6 +161,9 @@ yes you can filter in relations too !
 | include | string | {field1} ; {value1}
 
 ## pagination
+You must add the `Goopil\RestFilter\Contracts\Paginable` to your models if you want to use it.
+it rewrite the static `all()` method to parse the request for `page` & `perPage` params and call the right method if they're present.
+ 
 `http://exemple.com/api/v1/users?page=1`
 `http://exemple.com/api/v1/users?page=1&perPage=20`
 
@@ -148,11 +173,9 @@ yes you can filter in relations too !
 | perPage | int | 15
 
 ##### output
+as per laravel pagination
 ```js
 {
-  "success": true,
-  "message": "User list retrieved successfully.",
-  "data": {
     "total": 53,
     "per_page": "1",
     "current_page": 1,
@@ -164,7 +187,6 @@ yes you can filter in relations too !
     "data": [{
       ...
      }]
-  }
 }
 ```
 
@@ -181,35 +203,36 @@ yes you can filter in relations too !
 The notIn array has precedence over the in array 
 `http://exemple.com/api/v1/users?in=1;2;3;4;5;6&notIn=2`
 
+```js
+ [
+     { "name": "user1", "id": 1 },
+     { "name": "user3", "id": 3 },
+     { "name": "user4", "id": 4 },
+     { "name": "user5", "id": 5 }
+ ]
+```
+
 | name | field | format
 | :---: | :---: |  :---: |
 | in | id | string with delimiter or array of int
 | notIn | id | string with delimiter or array of int
 
 ## range selector
-`http://exemple.com/api/v1/users?from=10`
-`http://exemple.com/api/v1/users?from=10&to=20`
+`http://exemple.com/api/v1/users?offset=10`
+`http://exemple.com/api/v1/users?limit=20`
+`http://exemple.com/api/v1/users?offset=10&limit=20`
 
 | name | field | format | default
 | :---: | :---: | :---: | :---: |
-| from | id | int | 1
-| to | id | int | 15
+| offset | id | int | 1
+| limit | id | int | 15
 
-##### output
-
-```js
-{
-  "success": true,
-  "message": "User list retrieved successfully.",
-  "data": {
-    "cursor": true,
-    "total": 53,
-    "data": [{
-       ...
-    }]
-  }
-}
-```
+## bugs
+If you find a bug or want to report somethings just drop an issue.
 
 ## contributions
 Contributions are welcome. Just fork it and do a PR.
+
+## todo
+- [ ] add some tests
+- [ ] extract documentation in static file ?

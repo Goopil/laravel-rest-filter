@@ -40,9 +40,9 @@ class RestScopes implements ScopeInterface
      * ApiRequestFilter constructor.
      * @param Request $request
      */
-    public function __construct($request = null)
+    public function __construct(Request $request)
     {
-        $this->request = $request !== null ? $request : request();
+        $this->request = $request;
     }
 
     /**

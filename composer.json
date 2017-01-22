@@ -3,12 +3,10 @@
     "description": "set of eloquent scopes to implements various rest query strings",
     "type": "library",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Goopil",
-            "email": "me@goopil.org"
-        }
-    ],
+    "authors": [{
+        "name": "Goopil",
+        "email": "me@goopil.org"
+    }],
     "require": {
         "php": ">=5.5.9",
         "illuminate/database": ">=5.2,<5.4",

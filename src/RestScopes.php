@@ -49,24 +49,29 @@ class RestScopes implements ScopeInterface
      * scopes getters
      * @return array
      */
-    public function getScopes () {
+    public function getScopes ()
+    {
         return $this->scopes;
     }
 
     /**
      * reset and set scopes to be executed
-     * @param $scopes
+     * @param $scopes string|array
      */
-    public function setScopes ($scopes) {
+    public function setScopes ($scopes)
+    {
+        $scopes = is_string($scopes) ? func_get_args() : $scopes;
         $this->scopes = [];
         $this->assemble($scopes);
     }
 
     /**
      * add scopes to existing ones
-     * @param $scopes
+     * @param $scopes string|array
      */
-    public function addScopes ($scopes) {
+    public function addScopes ($scopes)
+    {
+        $scopes = is_string($scopes) ? func_get_args() : $scopes;
         $this->assemble($scopes);
     }
 
@@ -74,7 +79,8 @@ class RestScopes implements ScopeInterface
      * assemble scopes
      * @param $scopes
      */
-    protected function assemble($scopes) {
+    protected function assemble(array $scopes)
+    {
         $errors = [];
         array_walk($scopes, function($scope) use ($errors) {
             if ($scope instanceof ScopeInterface) {

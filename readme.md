@@ -1,7 +1,10 @@
 # Rest api scopes
-This package map some usual REST query filters to [Eloquent](https://laravel.com/docs/5.3/eloquent) scopes.  
-This is mainly an extract of the filter present in [andersao/l5-repository](https://github.com/andersao/l5-repository). but attachable to the model itself not used via repositories.  
-A big thanks to the previous contributors for their great work ;)
+This package map some usual REST query filters to [Eloquent](https://laravel.com/docs/5.3/eloquent) scopes.
+This is mainly an extract of the filter present in [andersao/l5-repository](https://github.com/andersao/l5-repository). but attachable to the model itself not via repositories.  
+A big thanks to the previous contributors for their great work ;)  
+
+it consist of different scopes & an execution heap to ease the registration. you can register any scope individually or use the heap to register them all.
+head up: if you use them individually, the Request is a mandatory constructor parameter. 
 
 * [Search](#search)
 * [Filter](#filter)
@@ -205,7 +208,7 @@ as per laravel pagination
 | in | ids | string with delimiter or array of int 
 
 ##### exclusive in notIn filter
-The `notIn` array has precedence over the `in` array 
+The `notIn` array has precedence over the `in` array  
 `http://exemple.com/api/v1/users?in=1;2;3;4;5;6&notIn=2`
 
 ```json

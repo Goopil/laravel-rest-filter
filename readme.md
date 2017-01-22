@@ -1,5 +1,8 @@
 # Rest api scopes
-This package provide a set of scopes to implement some http query parameters to they're `Eloquent` pendant. It is greatly inspired by the package [andersao/l5-repository](https://github.com/andersao/l5-repository) (A big thanks to him for his great work ;) )  
+This [Eloquent](https://laravel.com/docs/5.3/eloquent) package implements some current REST filters passed via query string. And map them in form of scope.  
+This is mainly an extract of what was done in [andersao/l5-repository](https://github.com/andersao/l5-repository) in term of query but to the model itself not via a repository.
+A big thanks to the previous contributors for their great work ;)
+
 * [Search](#search)
 * [Filter](#filter)
 * [Sort](#sort)
@@ -29,10 +32,11 @@ MyController extends Controller
     {
         // you can pass the current request if you use it in your context.
         User::addGlobalScope(new RestScopes($r));
+        
         // or the request will automaticaly be fetched if none are provided. 
         User::addGlobalScope(new RestScopes);
+
         return response()->json([
-            success => true,
             data => User::all()
         ]);
     }
@@ -43,17 +47,20 @@ MyController extends Controller
 ### global registration (in model)
 ```php
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Goopil\RestFilter\RestScopes;
+
 MyModel extends Eloquent
 {
     public static function boot () 
     {
         parent::boot();
-        static::addGlobalScope(app(RestScopes::class));
+        
+        static::addGlobalScope(new RestScopes);
     }
 }
 ```
-and for conveniance 
-the `Goopil\RestFilter\Contracts\Queryable` will hook itself in the Eloquent boot process to register the filters.
+
+you can also use `Goopil\RestFilter\Contracts\Queryable` which will hook itself in the Eloquent boot process to register the filters.
 
 # Api rest query syntax
 ### parameters format

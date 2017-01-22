@@ -1,14 +1,19 @@
 # Rest api scopes
-This package provide a set of scopes to implement somes query filter. It is greatly inspired by the package [andersao/l5-repository](https://github.com/andersao/l5-repository) (A big thanks to him for his great work ;) )  
-
-The multi filter implemented in this packages a really great but not the repository pattern it use. So long story short, this is just an extract of the filters in Eloquent scopes with some minors adjustments & additions.
+This package provide a set of scopes to implement some http query parameters to they're `Eloquent` pendant. It is greatly inspired by the package [andersao/l5-repository](https://github.com/andersao/l5-repository) (A big thanks to him for his great work ;) )  
+* [Search](#search)
+* [Filter](#filter)
+* [Sort](#sort)
+* [Include](#include)
+* [Pagination](#pagination)
+* [In / not in](#in-notin)
+* [Range selector](#range-selector)
 
 ## installation
 `composer require goopil/rest-query-scopes`
 
-## usage
+## declaration
 ### On a controller basis registration
-```
+```php
 use App\User;
 use Goopil\RestFilter\RestScopes;
 
@@ -20,19 +25,12 @@ MyController extends Controller
         User::addGlobalScope(new RestScopes);
     }
 
-    public function index ()
-    {
-        // per method registration
-        User::addGlobalScope(new RestScopes);
-        return response()->json([
-            success => true,
-            data => User::all()
-        ]);
-    }
-    
     public function index (MyCustomRequest $r)
     {
+        // you can pass the current request if you use it in your context.
         User::addGlobalScope(new RestScopes($r));
+        // or the request will automaticaly be fetched if none are provided. 
+        User::addGlobalScope(new RestScopes);
         return response()->json([
             success => true,
             data => User::all()
@@ -41,12 +39,9 @@ MyController extends Controller
  }
 ```
 
-you can pass the current request if you use it in the method.
-The package will fetch the current request if null is provided.
-So if you do have a request object you should pass it to it.
 
 ### global registration (in model)
-```
+```php
 use Illuminate\Database\Eloquent\Model as Eloquent;
 MyModel extends Eloquent
 {
@@ -57,24 +52,26 @@ MyModel extends Eloquent
     }
 }
 ```
-or you can use the `Goopil\RestFilter\Contracts\Queryable` to hook the RestScope in the boot process of eloquent.
+and for conveniance 
+the `Goopil\RestFilter\Contracts\Queryable` will hook itself in the Eloquent boot process to register the filters.
 
 # Api rest query syntax
-## parameters format
-the params parser work in 2 steps. first it check if the current params is an array (http). 
-* If true, it leave the params has is
-* if not, it split the array with the primary delimiter
+### parameters format
+The parameters support array or string with delimiters.
+so this is valid  
+`http://exemple.com/api/v1/users?search[1]=John&search[2]=Tom`  
+and this too  
+`http://exemple.com/api/v1/users?search=John;Tom` 
 
-## delimiter
+### delimiter
 | value | function |
 | :---: | :---: |
 | `;` |  delimit fields or search 
 | `:` |  delimit per field options
 
 ## search
-To be able to filter fields on an Eloquent model. The mentioned model MUST implement the `Goopil\RestFilter\Contracts\Searchable`.
-this interface simply specify a searchable method on the model.
-yes you can filter in relations too !
+the search feature make use of `Goopil\RestFilter\Contracts\Searchable`.
+this interface simply specify a `searchable()` method on the model. That will return an array of fields to search into. Relations fieds are supported.
 #### searchable method
 ```php
     static public function searchable()
@@ -155,18 +152,18 @@ yes you can filter in relations too !
 
 ## include
 `http://exemple.com/api/v1/users?include=roles`  
-`http://exemple.com/api/v1/users?include=roles.permissions`
+`http://exemple.com/api/v1/users?include=roles;sessions`
+`http://exemple.com/api/v1/users?include=roles.permissions;sessions`
 
 | name | type | format |
 | :---: | :---: | :---: |
 | include | string | {field1} ; {value1}
 
 ## pagination
-You must add the `Goopil\RestFilter\Contracts\Paginable` to your models if you want to use it.
-it rewrite the static `all()` method to parse the request for `page` & `perPage` params and call the right method if they're present.
+The `Goopil\RestFilter\Contracts\Paginable` rewrite the static `all()` method to parse the request for `page` & `perPage` params and call the right method if they're present.
  
-`http://exemple.com/api/v1/users?page=1`
-`http://exemple.com/api/v1/users?page=1&perPage=20`
+`http://exemple.com/api/v1/users?page=1`  
+`http://exemple.com/api/v1/users?page=1&perPage=20`  
 
 | name | type | default |
 | :---: | :---: | :---: |
@@ -175,7 +172,7 @@ it rewrite the static `all()` method to parse the request for `page` & `perPage`
 
 ##### output
 as per laravel pagination
-```js
+```json
 {
     "total": 53,
     "per_page": "1",
@@ -204,7 +201,7 @@ as per laravel pagination
 The notIn array has precedence over the in array 
 `http://exemple.com/api/v1/users?in=1;2;3;4;5;6&notIn=2`
 
-```js
+```json
  [
      { "name": "user1", "id": 1 },
      { "name": "user3", "id": 3 },

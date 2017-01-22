@@ -4,6 +4,7 @@ namespace Goopil\RestFilter\Scopes;
 use Illuminate\Database\Eloquent\Scope as ScopeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 /**
  * Class BaseScope
@@ -30,9 +31,9 @@ abstract class BaseScope implements ScopeInterface
      * BaseScope constructor.
      * @param null $request
      */
-    public function __construct($request = null)
+    public function __construct(Request $request)
     {
-        $this->request = $request !== null ? $request : request();
+        $this->request = $request;
     }
 
     /**

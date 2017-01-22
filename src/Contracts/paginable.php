@@ -19,7 +19,7 @@ trait Paginable
         /**
          * @var $request Request
          */
-        $request = app(Request::capture());
+        $request =Request::capture();
 
         return $request->has('page') ?
             $instance->newQuery()->paginate($request->get('perPage', $instance->getPerPage()), $columns) :

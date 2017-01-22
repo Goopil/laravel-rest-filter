@@ -42,7 +42,7 @@ class RestScopes implements ScopeInterface
      */
     public function __construct($request = null)
     {
-        $this->request = $request !== null ? $request : \app(Request::class);
+        $this->request = $request !== null ? $request : Request::capture();
     }
 
     /**

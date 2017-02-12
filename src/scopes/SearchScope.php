@@ -11,7 +11,7 @@ use Goopil\RestFilter\Contracts\Searchable;
  */
 class SearchScope extends BaseScope
 {
-    protected $acceptedConditions =  ['=', 'like'];
+    protected $acceptedConditions =  ['=', '>=', '<=', '<', '>', 'like', 'ilike'];
 
     /**
      * @param Builder $builder

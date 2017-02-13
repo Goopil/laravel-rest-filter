@@ -32,6 +32,7 @@ class SearchScope extends BaseScope
         $fieldsSearchable = $model::searchable();
         $search = $this->request->get('search', null);
         $searchFields = $this->request->get('searchFields', null);
+        $forceAndWhere = $this->request->get('searchForceAnd', false);
         $casts = $model->getCasts();
         
         if ($search && is_array($fieldsSearchable) && count($fieldsSearchable)) {
@@ -43,7 +44,7 @@ class SearchScope extends BaseScope
             $isFirstField = true;
             $searchData = $this->parserSearchData($search);
             $search = $this->parserSearchValue($search);
-            $modelForceAndWhere = false;
+//            $forceAndWhere = false;
 
     
             return $builder->where(function (Builder $query) use (
@@ -51,7 +52,7 @@ class SearchScope extends BaseScope
                 $search,
                 $searchData,
                 $isFirstField,
-                $modelForceAndWhere,
+                $forceAndWhere,
                 $casts,
                 $model
             ) {
@@ -89,7 +90,7 @@ class SearchScope extends BaseScope
                     $modelTableName = $model->getTable();
                     
                     if (!$invalidSearch) {
-                        if ($isFirstField || $modelForceAndWhere) {
+                        if ($isFirstField || $forceAndWhere) {
                             if (!is_null($value)) {
                                 if (!is_null($relation)) {
                                     $query->whereHas($relation, function ($query) use ($field, $condition, $value) {

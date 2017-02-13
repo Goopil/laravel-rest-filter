@@ -33,6 +33,7 @@ class SearchScope extends BaseScope
         $search = $this->request->get('search', null);
         $searchFields = $this->request->get('searchFields', null);
         $casts = $model->getCasts();
+        $modelTableName = $model->getTable();
         
         if ($search && is_array($fieldsSearchable) && count($fieldsSearchable)) {
             $searchFields = is_array($searchFields) || is_null($searchFields) ?
@@ -40,9 +41,9 @@ class SearchScope extends BaseScope
                 explode($this->primarySeparator, $searchFields);
            
             $fields = $this->parserFieldsSearch($fieldsSearchable, $searchFields);
-            $isFirstField = true;
             $searchData = $this->parserSearchData($search);
             $search = $this->parserSearchValue($search);
+            $isFirstField = true;
             $forceAndWhere = false;
 
             return $builder->where(function (Builder $query) use (
@@ -52,42 +53,33 @@ class SearchScope extends BaseScope
                 $isFirstField,
                 $forceAndWhere,
                 $casts,
-                $model
+                $modelTableName
             ) {
                 foreach ($fields as $field => $condition) {
-
                     $value = null;
+                    $relation = null;
+                    $invalidSearch = false;
                     $condition = trim(strtolower($condition));
+
                     if (substr( $condition, 0, 1) === "|") {
                         $forceAndWhere = true;
                         $condition = str_replace('|', '', $condition);
                     }
 
-                    $invalidSearch = false;
-    
                     if (isset($searchData[$field])) {
-                        $value = ($condition == "like" || $condition == "ilike") ?
-                            "%{$searchData[$field]}%" :
-                            $searchData[$field];
+                        $value = ($condition == "like" || $condition == "ilike") ? "%{$searchData[$field]}%" : $searchData[$field];
                     } else {
                         if (!is_null($search)) {
                             $value = ($condition == "like" || $condition == "ilike") ? "%{$search}%" : $search;
                         }
                     }
 
-                    if (array_key_exists($field, $casts) && $casts[$field] === 'boolean') {
-                        $invalidSearch =  !is_bool($value);
-                    }
-
-                    $relation = null;
                     if (stripos($field, '.')) {
                         $explode = explode('.', $field);
                         $field = array_pop($explode);
                         $relation = implode('.', $explode);
                     }
 
-                    $modelTableName = $model->getTable();
-                    
                     if (!$invalidSearch) {
                         if ($isFirstField || $forceAndWhere) {
                             if (!is_null($value)) {

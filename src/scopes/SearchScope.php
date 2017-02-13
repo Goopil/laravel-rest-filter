@@ -32,7 +32,6 @@ class SearchScope extends BaseScope
         $fieldsSearchable = $model::searchable();
         $search = $this->request->get('search', null);
         $searchFields = $this->request->get('searchFields', null);
-        $forceAndWhere = $this->request->get('searchForceAnd', false);
         $casts = $model->getCasts();
         
         if ($search && is_array($fieldsSearchable) && count($fieldsSearchable)) {
@@ -44,9 +43,8 @@ class SearchScope extends BaseScope
             $isFirstField = true;
             $searchData = $this->parserSearchData($search);
             $search = $this->parserSearchValue($search);
-//            $forceAndWhere = false;
+            $forceAndWhere = false;
 
-    
             return $builder->where(function (Builder $query) use (
                 $fields,
                 $search,
@@ -57,13 +55,14 @@ class SearchScope extends BaseScope
                 $model
             ) {
                 foreach ($fields as $field => $condition) {
-                    if (is_numeric($field)) {
-                        $field = $condition;
-                        $condition = "=";
-                    }
-    
+
                     $value = null;
                     $condition = trim(strtolower($condition));
+                    if (substr( $condition, 0, 1) === "|") {
+                        $forceAndWhere = true;
+                        $condition = str_replace('|', '', $condition);
+                    }
+
                     $invalidSearch = false;
     
                     if (isset($searchData[$field])) {
@@ -113,6 +112,8 @@ class SearchScope extends BaseScope
                             }
                         }
                     }
+
+                    $forceAndWhere = false;
                 }
             });
         } else {
@@ -183,7 +184,7 @@ class SearchScope extends BaseScope
                 $temporaryIndex = array_search($field_parts[0], $originalFields);
 
                 if (count($field_parts) == 2) {
-                    if (in_array($field_parts[1], $this->acceptedConditions)) {
+                    if (in_array(str_replace('|', '', $field_parts[1]), $this->acceptedConditions)) {
                         unset($originalFields[$temporaryIndex]);
                         $field = $field_parts[0];
                         $condition = $field_parts[1];

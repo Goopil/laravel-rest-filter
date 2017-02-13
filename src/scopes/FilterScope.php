@@ -13,13 +13,9 @@ class FilterScope extends BaseScope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $filter = $this->request->get('filter', null);
+        $filter = $this->hasArray($this->request->get('filter', null));
 
-        if (isset($filter) && !empty($filter)) {
-            if (is_string($filter)) {
-                $filter = explode($this->primarySeparator, $filter);
-            }
-
+        if (sizeof($filter) > 0) {
             $builder = $builder->select($filter);
         }
         

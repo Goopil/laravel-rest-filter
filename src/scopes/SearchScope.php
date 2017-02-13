@@ -114,6 +114,8 @@ class SearchScope extends BaseScope
                     }
                 }
             });
+        } else {
+            return $builder;
         }
     }
 

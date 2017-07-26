@@ -1,7 +1,7 @@
 {
-    "name": "goopil/rest-filter-scopes",
+    "name": "goopil/rest-filter",
     "description": "set of eloquent scopes to implements various rest query strings",
-    "version": "1.0.4",
+    "version": "0.1.0",
     "type": "library",
     "license": "MIT",
     "authors": [{
@@ -10,9 +10,8 @@
     }],
     "require": {
         "php": ">=5.5.9",
-        "illuminate/database": ">=5.2",
-        "illuminate/http": ">=5.2",
-        "illuminate/support": ">=5.2"
+        "laravel/framework": ">=5.2"
+
     },
     "autoload": {
         "psr-4": {

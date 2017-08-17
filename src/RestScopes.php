@@ -34,7 +34,6 @@ class RestScopes implements ScopeInterface
      */
     protected $scopes = [
         InNotInScope::class,
-        SearchScope::class,
         OrderScope::class,
         FilterScope::class,
         IncludeScope::class,

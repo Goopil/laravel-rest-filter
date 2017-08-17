@@ -59,7 +59,7 @@ abstract class BaseScope implements ScopeInterface
             return $content;
         }
 
-        if (is_string($content) && !empty($content)) {
+        if (is_string($content)) {
             return str_contains($content, $this->primarySeparator) ?
                 explode($this->primarySeparator, $content) :
                 [ $content ];

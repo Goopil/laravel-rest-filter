@@ -15,29 +15,49 @@ head up: if you use them individually, the Request is a mandatory constructor pa
 * [Range selector](#range-selector)
 
 ## installation
-`composer require goopil/rest-query-scopes`
+clone the repo and define a deploy key in the repo options then:
+
+add to `composer.json` (don't forget )
+
+```json
+"repositories": [
+    {
+        "type": "git",
+        "url": "git@gitlab.com:goopil/libs/laravel/rest-filter.git" // change path with yours
+    }
+],
+"require": {
+    "goopil/laravel-rbac": "dev-master",
+}
+```
+
+add `\Goopil\RestFilter\RestScopeProvider::class` to use the config file
+
+you can publish it with
+`php artisan vendor:publish --provider="Goopil\RestFilter\RestScopeProvider" --tag=config`
 
 ## declaration
 ### In Controllers
 ```php
 use App\User;
-use Goopil\RestFilter\RestScopes;
+use Goopil\RestFilter\RestScopes\Scopes\FullScope;
 
 MyController extends Controller
 {
     public function __construct() 
     {
         // global constructor registration
-        User::addGlobalScope(new RestScopes);
+        User::addGlobalScope(new FullScope);
     }
 
     public function index (MyCustomRequest $r)
     {
-        // you can pass the current request if you use it in your context.
-        User::addGlobalScope(new RestScopes($r));
+        // you can pass the current request if you use it in your context and specify  
+        the separator used for this controller only
+        User::addGlobalScope(new FullScope($r, ';', '|'));
         
         // or the request will automaticaly be fetched if none are provided. 
-        User::addGlobalScope(new RestScopes);
+        User::addGlobalScope(new FullScope);
 
         return response()->json([
             data => User::all()
@@ -50,14 +70,14 @@ MyController extends Controller
 ### In Models
 ```php
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Goopil\RestFilter\RestScopes;
+use Goopil\RestFilter\RestScopes\Scopes\FullScope;
 
 MyModel extends Eloquent
 {
     public static function boot () 
     {
         parent::boot();
-        static::addGlobalScope(new RestScopes);
+        static::addGlobalScope(new FullScope);
     }
 }
 ```
@@ -73,7 +93,8 @@ The parameters support array parameters.
 ### delimiter
 | value | function |
 | :---: | :---: |
-| `;` |  delimit per field options
+| `;` |  delimit per field name and query value
+| `|` |  delimit per field options
 
 ## search
 the search feature make use of `Goopil\RestFilter\Contracts\Searchable`.
@@ -115,7 +136,6 @@ By default or where clause ar implemented if you want to force a where close, yo
 ##### multi fields search with per field comparison operator
 `http://exemple.com/api/v1/users?search[name]=john&search;like&search[email].com;like`  
 
-
 ##### multi fields search with per field comparison operator and force where parameter
 `http://exemple.com/api/v1/users?search[name]=john&search;like&search[email].com;!like` 
 
@@ -135,7 +155,7 @@ By default or where clause ar implemented if you want to force a where close, yo
 | sortedBy | string | {desc}
 
 ## include
-`http://exemple.com/api/v1/users?include=roles` 
+`http://exemple.com/api/v1/users?include=roles`   
 `http://exemple.com/api/v1/users?include=roles;sessions`  
 `http://exemple.com/api/v1/users?include=roles.permissions;sessions`  
 

@@ -24,7 +24,7 @@ class SearchScope extends BaseScope
      *
      * @var string
      */
-    protected $defaultCondition = '=';
+    protected $defaultCondition;
 
     /**
      * force where query symbol

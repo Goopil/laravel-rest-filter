@@ -17,6 +17,7 @@ class OffsetLimitScope extends BaseScope
      */
     public function apply(Builder $builder, Model $model)
     {
+        $this->defineDefault();
         if ($this->request->has('offset')) {
             $builder = $builder->offset($this->request->get('offset'));
         }

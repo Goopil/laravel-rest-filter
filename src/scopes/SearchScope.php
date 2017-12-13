@@ -64,6 +64,7 @@ class SearchScope extends BaseScope
             return $builder;
         }
 
+        $this->defineDefault();
         $this->forceWhereSymbol = config('queryScope.forceWhereOperator', '!');
 
         return $this->handle($builder, $model);

@@ -17,6 +17,7 @@ class OrderScope extends BaseScope
      */
     public function apply(Builder $builder, Model $model)
     {
+        $this->defineDefault();
         $sortedBy = $this->request->get('sortedBy', 'asc');
         $sortedBy = !empty($sortedBy) ? $sortedBy : 'asc';
         $orderBy = $this->request->get('orderBy', null);

@@ -37,7 +37,8 @@ class RestScopes implements ScopeInterface
         OrderScope::class,
         FilterScope::class,
         IncludeScope::class,
-        OffsetLimitScope::class
+        OffsetLimitScope::class,
+        SearchScope::class,
     ];
 
     /**

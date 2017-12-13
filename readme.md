@@ -67,21 +67,18 @@ which will hook itself in the Eloquent boot process to register the filters.
 
 # query syntax
 ### parameters format
-The parameters support array or string with delimiters.  
-so this is valid  
+The parameters support array parameters.  
 `http://exemple.com/api/v1/users?search[1]=John&search[2]=Tom`  
-and this too  
-`http://exemple.com/api/v1/users?search=John;Tom` 
 
 ### delimiter
 | value | function |
 | :---: | :---: |
-| `;` |  delimit fields or search 
-| `:` |  delimit per field options
+| `;` |  delimit per field options
 
 ## search
 the search feature make use of `Goopil\RestFilter\Contracts\Searchable`.
-this interface simply specify a `searchable()` method on the model. That will return an array of fields to search into. Relations fieds are supported.
+this interface simply specify a `searchable()` method on the model. That will return an array of fields to search into. Relations fields are supported.
+By default or where clause ar implemented if you want to force a where close, you can add a `!` on the comparison segments
 #### searchable method
 ```php
     static public function searchable()
@@ -101,49 +98,26 @@ this interface simply specify a `searchable()` method on the model. That will re
 ```
 
 ##### Single value on registered searchable fields
-`http://exemple.com/api/v1/users?search=John%20Doe`
-
-| name | type | format |
-| :---: | :---: | :---: |
-| search | string | any
+`http://exemple.com/api/v1/users?search[]=John%20Doe`
 
 ##### Single value on registered nested searchable fields
-`http://exemple.com/api/v1/users?search=administrator&searchFields=roles.name`
-
-| name | type | format |
-| :---: | :---: | :---: |
-| search | string | {field1} |
-| searchFields | string | {relation.field1} |
+`http://exemple.com/api/v1/users?search[roles.name]=administrator`
 
 ##### Single value on registered searchable fields with comparison operator
-`http://exemple.com/api/v1/users?search=John&searchFields=name:like`
-
-| name | type | format | accepted |
-| :---: | :---: | :---: |  :---: |
-| search | string | any
-| searchFields | string | {fieldName} : {comparisonType} | comparisonType: <br> '=' or 'like'
+`http://exemple.com/api/v1/users?search[]=Johns;like`
 
 ##### Single value on specific field with comparison operator
-`http://exemple.com/api/v1/users?search=john@gmail.com&searchFields=email:=`
-
-| name | type | params format |
-| :---: | :---: | :---: |
-| search | string | {field1} : {value1} ; {field2} : {value2}
+`http://exemple.com/api/v1/users?search[email]=john@gmail.com;like`
 
 ##### multi fields search
-`http://exemple.com/api/v1/users?search=name:John Doe;email:john@gmail.com`
-
-| name | type | format |
-| :---: | :---: | :---: |
-| search | string | {field1} : {value1} ; {field2} : {value2}
+`http://exemple.com/api/v1/users?search[name]=John%20Doe&search[email]=john@gmail.com`
 
 ##### multi fields search with per field comparison operator
-`http://exemple.com/api/v1/users?search=name:John;email:john@gmail.com&searchFields=name:like;email:=`  
+`http://exemple.com/api/v1/users?search[name]=john&search;like[email].com;like`  
 
-| name | type | format |
-| :---: | :---: | :---: |
-| search | string | {field1} : {value1} ; {field2} : {value2} |
-| searchFields | string | {field1} : {operator1} ; {field2} : {operator1} |
+
+##### multi fields search with per field comparison operator and force where parameter
+`http://exemple.com/api/v1/users?search[name]=john&search;like[email].com;!like` 
 
 ## filter
 `http://exemple.com/api/v1/users?filter=id;name`

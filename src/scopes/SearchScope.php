@@ -17,7 +17,7 @@ class SearchScope extends BaseScope
      *
      * @var array
      */
-    protected $acceptedConditions = ['=', '>=', '<=', '<', '>', 'like', 'ilike'];
+    protected $acceptedConditions;
 
     /**
      * default db condition when not set
@@ -65,7 +65,9 @@ class SearchScope extends BaseScope
         }
 
         $this->defineDefault();
-        $this->forceWhereSymbol = config('queryScope.forceWhereOperator', '!');
+        $this->forceWhereSymbol = config('queryScope.search.forceWhere', '!');
+        $this->acceptedConditions = config('queryScope.search.acceptedConditions', ['=', '>=', '<=', '<', '>', 'like', 'ilike']);
+        $this->defaultCondition = config('queryScope.search.default', '=');
 
         return $this->handle($builder, $model);
     }
@@ -78,7 +80,7 @@ class SearchScope extends BaseScope
      */
     protected function handle(Builder $builder, Searchable $model)
     {
-        $search            = $this->request->get('search', null);
+        $search            = $this->request->get(config('queryScope.search.searchParam', 'search'), null);
         $this->validFields = $model::searchable();
 
         if ($search === null || ! is_array($this->validFields) || count($this->validFields) < 1) {

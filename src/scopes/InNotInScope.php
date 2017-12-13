@@ -27,7 +27,9 @@ class InNotInScope extends BaseScope
     {
         $this->defineDefault();
         foreach ($this->contexts as $context => $methodName) {
-            $context = $this->hasArray($this->request->get($context, null));
+            $param = config("queryScope.inNotIn.{$context}", $context);
+
+            $context = $this->hasArray($this->request->get($param, null));
 
             if (sizeof($context) > 0) {
                 $builder = $builder->{$methodName}($model->getKeyName(), $context);

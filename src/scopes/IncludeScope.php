@@ -18,7 +18,7 @@ class IncludeScope extends BaseScope
     public function apply(Builder $builder, Model $model)
     {
         $this->defineDefault();
-        $include = $this->hasArray($this->request->get('include', null));
+        $include = $this->hasArray($this->request->get(config('queryScope.include.param', 'include'), null));
         $existing = array_filter($include, function($includeName) use ($model) {
             return method_exists($model, $includeName);
         });

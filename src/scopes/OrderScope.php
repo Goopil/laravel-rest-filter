@@ -18,9 +18,9 @@ class OrderScope extends BaseScope
     public function apply(Builder $builder, Model $model)
     {
         $this->defineDefault();
-        $sortedBy = $this->request->get('sortedBy', 'asc');
+        $sortedBy = $this->request->get(config('queryScope.order.sortParam', 'sortedBy'), 'asc');
         $sortedBy = !empty($sortedBy) ? $sortedBy : 'asc';
-        $orderBy = $this->request->get('orderBy', null);
+        $orderBy = $this->request->get(config('queryScope.order.orderParam', 'orderBy'), null);
 
         if (isset($orderBy) && !empty($orderBy)) {
             $split = explode($this->secondary, $orderBy);
@@ -39,7 +39,7 @@ class OrderScope extends BaseScope
                 }
 
                 $builder = $builder
-                    ->leftJoin($sortTable, $keyName, '=', $sortTable.'.id')
+                    ->leftJoin($sortTable, $keyName, '=', $sortTable . $model->getKeyName())
                     ->orderBy($sortColumn, $sortedBy)
                     ->addSelect($table.'.*');
             } else {

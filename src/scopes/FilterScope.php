@@ -4,6 +4,10 @@ namespace Goopil\RestFilter\Scopes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Class FilterScope
+ * @package Goopil\RestFilter\Scopes
+ */
 class FilterScope extends BaseScope
 {
     /**
@@ -18,7 +22,7 @@ class FilterScope extends BaseScope
         if (sizeof($filter) > 0) {
             $builder = $builder->select($filter);
         }
-        
+
         return $builder;
     }
 }

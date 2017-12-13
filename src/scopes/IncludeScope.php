@@ -4,6 +4,10 @@ namespace Goopil\RestFilter\Scopes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Class IncludeScope
+ * @package Goopil\RestFilter\Scopes
+ */
 class IncludeScope extends BaseScope
 {
     /**

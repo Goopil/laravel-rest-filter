@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class OrderScope
- * @package Mfs\Common\Scopes\Api
+ * @package Goopil\RestFilter\Scopes
  */
 class OrderScope extends BaseScope
 {
@@ -22,13 +22,13 @@ class OrderScope extends BaseScope
         $orderBy = $this->request->get('orderBy', null);
 
         if (isset($orderBy) && !empty($orderBy)) {
-            $split = explode($this->secondarySeparator, $orderBy);
+            $split = explode($this->secondary, $orderBy);
             if (count($split) > 1) {
                 $table = $model->getModel()->getTable();
                 $sortTable = $split[0];
                 $sortColumn = $split[1];
 
-                $split = explode($this->primarySeparator, $sortTable);
+                $split = explode($this->primary, $sortTable);
                 if (count($split) > 1) {
                     $sortTable = $split[0];
                     $keyName = $table.'.'.$split[1];

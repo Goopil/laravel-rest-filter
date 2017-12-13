@@ -113,11 +113,11 @@ By default or where clause ar implemented if you want to force a where close, yo
 `http://exemple.com/api/v1/users?search[name]=John%20Doe&search[email]=john@gmail.com`
 
 ##### multi fields search with per field comparison operator
-`http://exemple.com/api/v1/users?search[name]=john&search;like[email].com;like`  
+`http://exemple.com/api/v1/users?search[name]=john&search;like&search[email].com;like`  
 
 
 ##### multi fields search with per field comparison operator and force where parameter
-`http://exemple.com/api/v1/users?search[name]=john&search;like[email].com;!like` 
+`http://exemple.com/api/v1/users?search[name]=john&search;like&search[email].com;!like` 
 
 ## filter
 `http://exemple.com/api/v1/users?filter=id;name`

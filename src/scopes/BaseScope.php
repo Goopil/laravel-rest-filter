@@ -1,4 +1,5 @@
 <?php
+
 namespace Goopil\RestFilter\Scopes;
 
 use Illuminate\Database\Eloquent\Scope as ScopeInterface;
@@ -13,46 +14,109 @@ use Illuminate\Http\Request;
 abstract class BaseScope implements ScopeInterface
 {
     /**
-     * @var array|\Illuminate\Http\Request|null|string
+     * @var Request|null
      */
     protected $request;
 
     /**
-     * @var string $primarySeparator
+     * @var string|null
      */
-    protected $primarySeparator;
+    protected $primary;
 
     /**
-     * @var string $secondarySeparator
+     * @var string|null
      */
-    protected $secondarySeparator;
+    protected $secondary;
 
     /**
      * BaseScope constructor.
-     * @param Request $request
-     * @param array $separators
+     *
+     * @param null $request
+     * @param null $primary
+     * @param null $secondary
      */
-    public function __construct(Request $request, $separators = null)
+    public function __construct($request = null, $primary = null, $secondary = null)
     {
-        $separators = $separators === null ? ['primary' => ';', 'secondary' => ':'] : $separators;
-
-        if (!array_key_exists('primary', $separators) || !array_key_exists('secondary', $separators)) {
-            throw new \InvalidArgumentException('primary or secondary key missing');
-        } elseif ($separators['primary'] === $separators['secondary']) {
-            throw new \InvalidArgumentException('the primary and secondary keys can\'t be the same');
+        if ($request !== null) {
+            $this->request = $request;
         }
 
-        $this->request = $request !== null ? $request : Request::capture();
-        $this->primarySeparator = $separators['primary'];
-        $this->secondarySeparator = $separators['secondary'];
+        if ($primary !== null) {
+            $this->primary = $primary;
+        }
+
+        if ($secondary !== null) {
+            $this->secondary = $secondary;
+        }
     }
 
     /**
-    * return params has array
-    *
-    * @param string|array $content
-    * @return array
-    */
+     * Define primary separator
+     *
+     * @param $delimiter
+     *
+     * @return $this
+     */
+    public function setPrimaryDelimiter($delimiter)
+    {
+        $this->primary = $delimiter;
+
+        return $this;
+    }
+
+    /**
+     * Define secondary
+     *
+     * @param $delimiter
+     *
+     * @return $this
+     */
+    public function setSecondaryDelimiter($delimiter)
+    {
+        $this->secondary = $delimiter;
+
+        return $this;
+    }
+
+    /**
+     * Define current request
+     *
+     * @param $request
+     *
+     * @return $this
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    /**
+     * Get default if vars are not set
+     */
+    protected function defineDefault()
+    {
+        if ($this->request === null) {
+            $this->request = Request::capture();
+        }
+
+        if ($this->primary === null) {
+            $this->primary = config('queryScope.primarySeparator');
+        }
+
+        if ($this->secondary === null) {
+            $this->secondary = config('queryScope.secondarySeparator');
+        }
+    }
+
+    /**
+     * return params has array
+     *
+     * @param string|array $content
+     *
+     * @return array
+     */
     protected function hasArray($content)
     {
         if (is_array($content)) {
@@ -60,9 +124,9 @@ abstract class BaseScope implements ScopeInterface
         }
 
         if (is_string($content)) {
-            return str_contains($content, $this->primarySeparator) ?
-                explode($this->primarySeparator, $content) :
-                [ $content ];
+            return str_contains($content, $this->primary) ?
+                explode($this->primary, $content) :
+                [$content];
         }
 
         return [];
@@ -71,6 +135,7 @@ abstract class BaseScope implements ScopeInterface
     /**
      * @param Builder $builder
      * @param Model $model
+     *
      * @return Builder
      */
     abstract public function apply(Builder $builder, Model $model);

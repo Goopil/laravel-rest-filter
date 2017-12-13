@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 /**
  * Class Paginable
  * @package Goopil\RestFilter\Contracts
+ * @mixin \Illuminate\Database\Eloquent\Model
  */
 trait Paginable
 {

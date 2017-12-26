@@ -17,5 +17,12 @@
         "psr-4": {
             "Goopil\\RestFilter\\": "src"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Goopil\\RestFilter\\RestScopeProvider"
+            ]
+        }
     }
 }

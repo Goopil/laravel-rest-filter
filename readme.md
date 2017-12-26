@@ -23,7 +23,7 @@ add to `composer.json` (don't forget )
 "repositories": [
     {
         "type": "git",
-        "url": "git@gitlab.com:goopil/libs/laravel/rest-filter.git" // change path with yours
+        "url": "git@gitlab.com:goopil/lib/laravel/rest-filter.git" // change path with yours
     }
 ],
 "require": {

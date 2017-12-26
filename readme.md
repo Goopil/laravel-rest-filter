@@ -27,7 +27,7 @@ add to `composer.json` (don't forget )
     }
 ],
 "require": {
-    "goopil/laravel-rbac": "dev-master",
+    "goopil/rest-filter: "dev-master",
 }
 ```
 

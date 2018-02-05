@@ -13,6 +13,9 @@ head up: if you use them individually, the Request is a mandatory constructor pa
 * [Pagination](#pagination)
 * [In / not in](#in-notin)
 * [Range selector](#range-selector)
+* 
+
+you can use [qs](https://github.com/ljharb/qs) to ease the parameters formating
 
 ## installation
 clone the repo and define a deploy key in the repo options then:

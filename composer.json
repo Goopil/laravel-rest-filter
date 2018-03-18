@@ -1,5 +1,5 @@
 {
-    "name": "goopil/rest-filter",
+    "name": "goopil/eloquent-rest-filter",
     "description": "set of eloquent scopes to implements various rest query strings",
     "version": "0.2.0",
     "type": "library",

@@ -48,7 +48,7 @@ class OffsetLimitTest extends BaseTestCase
     {
         $decoded = $this->callEndpoint(['offset' => 1]);
 
-        $this->assertNotEquals(2, $decoded[0]['id']);
+        $this->assertEquals(2, $decoded[0]['id']);
     }
 
 }

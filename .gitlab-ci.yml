@@ -1,0 +1,70 @@
+#global config
+stages:
+  - testing
+
+variables:
+  COMPOSER_HOME: ./composer
+
+image: tetraweb/php:7.1
+
+cache:
+  paths:
+  - ./composer/cache
+
+#templates
+.testing_template: &common_script
+  stage: testing
+  before_script:
+    - docker-php-ext-enable zip
+    - docker-php-ext-enable xdebug
+    - docker-php-ext-enable pdo pdo_mysql pdo_pgsql
+
+    - composer self-update
+    - composer install --no-suggest --no-progress
+    - mkdir ./database
+    - touch ./database.sqlite
+
+  script:
+    - composer test
+
+#jobs
+
+sqlite:
+  <<: *common_script
+  variables:
+    DB_CONNECTION: sqlite
+    DB_DATABASE: ./database.sqlite
+    COMPOSER_HOME: ./composer
+
+
+mysql:
+  <<: *common_script
+  services:
+  - mysql:latest
+  variables:
+    MYSQL_DATABASE: test
+    MYSQL_ROOT_PASSWORD: secret
+
+    DB_CONNECTION: mysql
+    DB_HOST: mysql
+    DB_DATABASE: test
+    DB_USERNAME: root
+    DB_PASSWORD: secret
+    COMPOSER_HOME: ./composer
+
+pgsql:
+  <<: *common_script
+  services:
+    - postgres:latest
+
+  variables:
+    POSTGRES_DB: test
+    POSTGRES_USER: test
+    POSTGRES_PASSWORD: test
+
+    DB_CONNECTION: pgsql
+    DB_HOST: postgres
+    DB_DATABASE: test
+    DB_USERNAME: test
+    DB_PASSWORD: test
+    COMPOSER_HOME: ./composer

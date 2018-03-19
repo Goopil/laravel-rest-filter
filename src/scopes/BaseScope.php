@@ -37,77 +37,9 @@ abstract class BaseScope implements ScopeInterface
      */
     public function __construct($request = null, $primary = null, $secondary = null)
     {
-        if ($request !== null) {
-            $this->request = $request;
-        }
-
-        if ($primary !== null) {
-            $this->primary = $primary;
-        }
-
-        if ($secondary !== null) {
-            $this->secondary = $secondary;
-        }
-    }
-
-    /**
-     * Define primary separator
-     *
-     * @param $delimiter
-     *
-     * @return $this
-     */
-    public function setPrimaryDelimiter($delimiter)
-    {
-        $this->primary = $delimiter;
-
-        return $this;
-    }
-
-    /**
-     * Define secondary
-     *
-     * @param $delimiter
-     *
-     * @return $this
-     */
-    public function setSecondaryDelimiter($delimiter)
-    {
-        $this->secondary = $delimiter;
-
-        return $this;
-    }
-
-    /**
-     * Define current request
-     *
-     * @param $request
-     *
-     * @return $this
-     */
-    public function setRequest($request)
-    {
-        $this->request = $request;
-
-        return $this;
-    }
-
-    /**
-     * Get default if vars are not set
-     */
-    protected function defineDefault()
-    {
-        if ($this->request === null) {
-            $this->request = app(Request::class);
-        }
-
-        if ($this->primary === null) {
-            $this->primary = config('queryScope.primarySeparator');
-        }
-
-        if ($this->secondary === null) {
-            $this->secondary = config('queryScope.secondarySeparator');
-        }
+        $this->request = $request !== null ? $request : app(Request::class);
+        $this->primary = $primary !== null ? $primary : config('queryScope.primarySeparator');
+        $this->secondary = $this->secondary !== null ? $secondary : config('queryScope.secondarySeparator');
     }
 
     /**

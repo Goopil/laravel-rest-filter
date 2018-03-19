@@ -38,10 +38,6 @@ sqlite:
 
 
 mysql:
-  only:
-    - master
-    - develop
-    - merge-requests
   <<: *common_script
   services:
   - mysql:latest
@@ -57,11 +53,6 @@ mysql:
     COMPOSER_HOME: ./composer
 
 pgsql:
-  only:
-    - master
-    - develop
-    - merge-requests
-
   <<: *common_script
   services:
     - postgres:latest
@@ -81,13 +72,13 @@ pgsql:
 codequality:
   only:
     - merge-requests
-
   stage: testing
   image: docker:latest
   variables:
     DOCKER_DRIVER: overlay
   services:
     - docker:dind
+  allow_failure: true
   script:
     - echo $PWD
     - docker pull codeclimate/codeclimate

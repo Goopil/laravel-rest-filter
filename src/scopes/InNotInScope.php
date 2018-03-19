@@ -25,7 +25,6 @@ class InNotInScope extends BaseScope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $this->defineDefault();
         foreach ($this->contexts as $context => $methodName) {
             $param = config("queryScope.inNotIn.{$context}", $context);
 

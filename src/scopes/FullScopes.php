@@ -88,8 +88,6 @@ class FullScopes extends BaseScope implements ScopeInterface
      */
     public function apply(Builder $builder, Model $model)
     {
-        $this->defineDefault();
-
         foreach ($this->scopes as $scope) {
             /** @var $current ScopeInterface */
             $current = new $scope($this->request, $this->primary, $this->secondary);

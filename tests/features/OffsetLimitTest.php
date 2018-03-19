@@ -33,4 +33,13 @@ class OffsetLimitTest extends BaseTestCase {
         $this->assertCount(1, $decoded);
     }
 
+    /**
+     * @test
+     */
+    public function itShouldApplyOffsetToQuery () {
+        $decoded = $this->callEndpoint(['offset' => 1]);
+
+        $this->assertNotEquals(1, $decoded[0]['id']);
+    }
+
 }

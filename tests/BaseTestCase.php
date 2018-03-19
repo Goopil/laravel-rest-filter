@@ -53,7 +53,9 @@ abstract class BaseTestCase extends base
         /**
          * assign local db config if none set by env (ci testing)
          */
-        //$app['config']->set('database.default', env('database.default', 'testbench'));
+        if (env('DB_CONNECTION') === null) {
+            $app['config']->set('database.default', env('database.default', 'testbench'));
+        }
 
         /**
          * testing url

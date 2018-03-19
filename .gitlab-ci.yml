@@ -80,8 +80,6 @@ pgsql:
 
 codequality:
   only:
-    - master
-    - develop
     - merge-requests
 
   stage: testing

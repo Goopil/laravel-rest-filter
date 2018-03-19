@@ -70,6 +70,7 @@ pgsql:
     COMPOSER_HOME: ./composer
 
 codequality:
+  stage: testing
   image: docker:latest
   variables:
     DOCKER_DRIVER: overlay

@@ -78,11 +78,13 @@ codequality:
     - docker:dind
   script:
     - docker pull codeclimate/codeclimate
-    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
     - docker run
-      --env SOURCE_CODE="$PWD" \
+      --env CODECLIMATE_CODE="$PWD" \
       --volume "$PWD":/code \
       --volume /var/run/docker.sock:/var/run/docker.sock \
-      "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
+      --volume /tmp/cc:/tmp/cc \
+        codeclimate/codeclimate:0.70.1 \
+        analyze -f json > raw_codeclimate.json
+    - cat raw_codeclimate.json | docker run -i stedolan/jq -c 'map({check_name,fingerprint,location})' > codeclimate.json
   artifacts:
     paths: [codeclimate.json]

@@ -79,13 +79,7 @@ codequality:
   script:
     - echo $PWD
     - docker pull codeclimate/codeclimate
-    - docker run \
-        --interactive --tty --rm \
-        --env CODECLIMATE_CODE="$PWD" \
-        --volume "$PWD":/code \
-        --volume /var/run/docker.sock:/var/run/docker.sock \
-        --volume /tmp/cc:/tmp/cc \
-        codeclimate/codeclimate help
-#    - cat raw_codeclimate.json | docker run -i stedolan/jq -c 'map({check_name,fingerprint,location})' > codeclimate.json
+    - docker run --interactive --tty --rm --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate help
+    - cat raw_codeclimate.json | docker run -i stedolan/jq -c 'map({check_name,fingerprint,location})' > codeclimate.json
   artifacts:
     paths: [codeclimate.json]

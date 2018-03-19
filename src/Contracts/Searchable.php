@@ -3,15 +3,14 @@
 namespace Goopil\RestFilter\Contracts;
 
 /**
- * Interface Searchable
- * @package Goopil\RestFilter\Contracts
+ * Interface Searchable.
  */
 interface Searchable
 {
     /**
-     * Array of fields to be searched
+     * Array of fields to be searched.
      *
      * @return array
      */
-    static public function searchable();
+    public static function searchable();
 }

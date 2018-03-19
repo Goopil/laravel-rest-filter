@@ -2,14 +2,13 @@
 
 namespace Goopil\RestFilter\Scopes;
 
-use Illuminate\Database\Eloquent\Scope as ScopeInterface;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope as ScopeInterface;
 use Illuminate\Http\Request;
 
 /**
- * Class BaseScope
- * @package Goopil\RestFilter\Scopes
+ * Class BaseScope.
  */
 abstract class BaseScope implements ScopeInterface
 {
@@ -43,7 +42,7 @@ abstract class BaseScope implements ScopeInterface
     }
 
     /**
-     * return params has array
+     * return params has array.
      *
      * @param string|array $content
      *
@@ -66,7 +65,7 @@ abstract class BaseScope implements ScopeInterface
 
     /**
      * @param Builder $builder
-     * @param Model $model
+     * @param Model   $model
      *
      * @return Builder
      */

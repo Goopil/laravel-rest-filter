@@ -49,5 +49,4 @@ class OffsetLimitTest extends BaseTestCase
 
         $this->assertEquals(2, $decoded[0]['id']);
     }
-
 }

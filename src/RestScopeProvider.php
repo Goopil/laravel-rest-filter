@@ -5,8 +5,7 @@ namespace Goopil\RestFilter;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class RestScopeProvider
- * @package Goopil\RestFilter
+ * Class RestScopeProvider.
  */
 class RestScopeProvider extends ServiceProvider
 {
@@ -18,7 +17,7 @@ class RestScopeProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__ . '/../config/queryScope.php' => config_path('queryScope.php')
+            __DIR__.'/../config/queryScope.php' => config_path('queryScope.php'),
         ], 'config');
     }
 
@@ -29,6 +28,6 @@ class RestScopeProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/queryScope.php', 'queryScope');
+        $this->mergeConfigFrom(__DIR__.'/../config/queryScope.php', 'queryScope');
     }
 }

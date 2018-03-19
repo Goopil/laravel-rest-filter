@@ -12,7 +12,7 @@
     "support": {
         "issues": "https://gitlab.com/goopil/lib/laravel/rest-filter/issues"
     },
-    "version": "0.2.0",
+    "version": "0.2.1",
     "license": "MIT",
     "authors": [{
         "name": "Goopil",

@@ -8,7 +8,7 @@ class OffsetLimitTest extends BaseTestCase {
     /**
      * @test
      */
-    public function itShouldLimitTheEntitiesNumbers ()
+    public function itShouldLimitTheEntitiesToTwo ()
     {
         $decoded = $this->callEndpoint(['limit' => 2]);
         $this->assertCount(2, $decoded);
@@ -17,7 +17,7 @@ class OffsetLimitTest extends BaseTestCase {
     /**
      * @test
      */
-    public function itShouldApplyTheDefaultLimitIfParamsIsNotInt ()
+    public function itShouldApplyTheDefaultLimitIfParamsIsNotValidInt ()
     {
         $decoded = $this->callEndpoint(['limit' => '125']);
         $this->assertCount(15, $decoded);
@@ -26,7 +26,7 @@ class OffsetLimitTest extends BaseTestCase {
     /**
      * @test
      */
-    public function itShouldApplyOffsetAndLimitToQuery ()
+    public function itShouldApplyOffsetAndLimitAndReturnTheSecondEntities ()
     {
         $decoded = $this->callEndpoint(['offset' => 1, 'limit' => 1]);
 
@@ -36,7 +36,7 @@ class OffsetLimitTest extends BaseTestCase {
     /**
      * @test
      */
-    public function itShouldApplyOffsetToQuery () {
+    public function itShouldApplyOffsetAndReturnAllStartingToSecond () {
         $decoded = $this->callEndpoint(['offset' => 1]);
 
         $this->assertNotEquals(1, $decoded[0]['id']);

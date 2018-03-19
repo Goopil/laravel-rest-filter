@@ -6,7 +6,6 @@ use Goopil\RestFilter\Tests\BaseTestCase;
 
 class OffsetLimitTest extends BaseTestCase
 {
-
     /**
      * @test
      */

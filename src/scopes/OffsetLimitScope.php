@@ -22,7 +22,7 @@ class OffsetLimitScope extends BaseScope
         $offsetKey = config('queryScope.offsetLimit.offsetParam', 'offset');
         if ($this->request->has($offsetKey)) {
             $value = $this->request->get($offsetKey);
-            $builder = $builder->offset(is_int($value) ? $value : 0);
+            $builder = $builder->skip(is_int($value) ? $value : 0);
         }
 
         $limitKey = config('queryScope.offsetLimit.limitParam', 'limit');

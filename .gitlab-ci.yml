@@ -38,6 +38,10 @@ sqlite:
 
 
 mysql:
+  only:
+    - master
+    - develop
+    - merge-requests
   <<: *common_script
   services:
   - mysql:latest
@@ -53,6 +57,11 @@ mysql:
     COMPOSER_HOME: ./composer
 
 pgsql:
+  only:
+    - master
+    - develop
+    - merge-requests
+
   <<: *common_script
   services:
     - postgres:latest
@@ -70,6 +79,11 @@ pgsql:
     COMPOSER_HOME: ./composer
 
 codequality:
+  only:
+    - master
+    - develop
+    - merge-requests
+
   stage: testing
   image: docker:latest
   variables:

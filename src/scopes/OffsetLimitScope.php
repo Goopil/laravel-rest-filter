@@ -18,18 +18,28 @@ class OffsetLimitScope extends BaseScope
     public function apply(Builder $builder, Model $model)
     {
         $this->defineDefault();
-
-        $offsetKey = config('queryScope.offsetLimit.offsetParam', 'offset');
-        if ($this->request->has($offsetKey)) {
-            $value = $this->request->get($offsetKey);
-            $builder = $builder->skip(is_int($value) ? $value : 0);
-        }
-
+        $hasLimit = false;
         $limitKey = config('queryScope.offsetLimit.limitParam', 'limit');
         if ($this->request->has($limitKey)) {
             $value = $this->request->get($limitKey);
             $builder = $builder->limit(is_int($value) ? $value : 15);
+            $hasLimit = true;
         }
+
+        $offsetKey = config('queryScope.offsetLimit.offsetParam', 'offset');
+        if ($this->request->has($offsetKey)) {
+            $value = $this->request->get($offsetKey);
+            $builder = $builder->offset(is_int($value) ? $value : 0);
+
+            /**
+             * nasty work around ...
+             * @see https://github.com/laravel/framework/issues/5458
+             */
+            if ($hasLimit == false) {
+                $builder = $builder->limit(PHP_INT_MAX);
+            }
+        }
+
 
         return $builder;
     }

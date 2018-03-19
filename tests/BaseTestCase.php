@@ -88,6 +88,6 @@ abstract class BaseTestCase extends base
     {
         $response = $this->call('GET', $this->baseTestRelativeUrl, $params);
 
-        return json_decode($response->getContent());
+        return json_decode($response->getContent(), true);
     }
 }

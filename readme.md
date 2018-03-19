@@ -1,6 +1,7 @@
+[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://gitlab.com/goopil/lib/laravel/rest-filter/blob/master/LICENSE)
 [![pipeline status](https://gitlab.com/goopil/lib/laravel/rest-filter/badges/master/pipeline.svg)](https://gitlab.com/goopil/lib/laravel/rest-filter/commits/master)
 [![coverage report](https://gitlab.com/goopil/lib/laravel/rest-filter/badges/master/coverage.svg)](https://gitlab.com/goopil/lib/laravel/rest-filter/commits/master)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://gitlab.com/goopil/lib/laravel/rest-filter/blob/master/LICENSE)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Goopil/laravel-rest-filter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Goopil/laravel-rest-filter/?branch=master)
 
 # Rest api scopes
 This package map some usual REST query filters to [Eloquent](https://laravel.com/docs/5.3/eloquent) scopes.

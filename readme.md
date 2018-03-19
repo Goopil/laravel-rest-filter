@@ -3,6 +3,7 @@
 [![coverage report](https://gitlab.com/goopil/lib/laravel/rest-filter/badges/master/coverage.svg)](https://gitlab.com/goopil/lib/laravel/rest-filter/commits/master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Goopil/laravel-rest-filter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Goopil/laravel-rest-filter/?branch=master)
 [![StyleCI](https://styleci.io/repos/125917556/shield?branch=master)](https://styleci.io/repos/125917556)
+[![Maintainability](https://api.codeclimate.com/v1/badges/045909a491e073dbf16e/maintainability)](https://codeclimate.com/github/Goopil/laravel-rest-filter/maintainability)
 
 # Rest api scopes
 This package map some usual REST query filters to [Eloquent](https://laravel.com/docs/5.3/eloquent) scopes.

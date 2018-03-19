@@ -1,3 +1,6 @@
+[![pipeline status](https://gitlab.com/goopil/lib/laravel/rest-filter/badges/master/pipeline.svg)](https://gitlab.com/goopil/lib/laravel/rest-filter/commits/master)
+[![coverage report](https://gitlab.com/goopil/lib/laravel/rest-filter/badges/master/coverage.svg)](https://gitlab.com/goopil/lib/laravel/rest-filter/commits/master)
+
 # Rest api scopes
 This package map some usual REST query filters to [Eloquent](https://laravel.com/docs/5.3/eloquent) scopes.
 This is mainly an extract of the filters present in [andersao/l5-repository](https://github.com/andersao/l5-repository). but attachable to the model itself not via repositories.  

@@ -1,22 +1,50 @@
 {
     "name": "goopil/eloquent-rest-filter",
     "description": "set of eloquent scopes to implements various rest query strings",
+    "keywords": [
+        "laravel",
+        "database",
+        "db",
+        "api",
+        "filter"
+    ],
+    "homepage": "https://gitlab.com/goopil/lib/laravel/rest-filter",
+    "support": {
+        "issues": "https://gitlab.com/goopil/lib/laravel/rest-filter/issues"
+    },
     "version": "0.2.0",
-    "type": "library",
     "license": "MIT",
     "authors": [{
         "name": "Goopil",
         "email": "me@goopil.org"
     }],
     "require": {
-        "php": ">=5.5.9",
-        "laravel/framework": ">=5.2"
-
+        "php": ">=7.0.0",
+        "illuminate/container": "~5.5.0|~5.6.0",
+        "illuminate/contracts": "~5.5.0|~5.6.0",
+        "illuminate/database": "~5.5.0|~5.6.0",
+        "illuminate/support": "~5.5.0|~5.6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.3|^7.0",
+        "orchestra/testbench":  "~3.5.0|~3.6.0"
     },
     "autoload": {
         "psr-4": {
             "Goopil\\RestFilter\\": "src"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Goopil\\RestFilter\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "win-test": "vendor\\bin\\phpunit --debug --coverage-text --colors=never",
+        "test": "vendor/bin/phpunit --debug --coverage-text --colors=never"
+    },
+    "config": {
+        "sort-packages": true
     },
     "extra": {
         "laravel": {

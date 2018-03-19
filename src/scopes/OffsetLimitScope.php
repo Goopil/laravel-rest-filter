@@ -18,14 +18,17 @@ class OffsetLimitScope extends BaseScope
     public function apply(Builder $builder, Model $model)
     {
         $this->defineDefault();
-        $offset = config('queryScope.offsetLimit.offsetParam', 'offset');
-        if ($this->request->has($offset)) {
-            $builder = $builder->offset($this->request->get($offset));
+
+        $offsetKey = config('queryScope.offsetLimit.offsetParam', 'offset');
+        if ($this->request->has($offsetKey)) {
+            $value = $this->request->get($offsetKey);
+            $builder = $builder->offset(is_int($value) ? $value : 0);
         }
 
-        $limit = config('queryScope.offsetLimit.limitParam', 'limit');
-        if ($this->request->has($limit)) {
-            $builder = $builder->limit($this->request->get($limit));
+        $limitKey = config('queryScope.offsetLimit.limitParam', 'limit');
+        if ($this->request->has($limitKey)) {
+            $value = $this->request->get($limitKey);
+            $builder = $builder->limit(is_int($value) ? $value : 15);
         }
 
         return $builder;

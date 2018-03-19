@@ -98,7 +98,7 @@ abstract class BaseScope implements ScopeInterface
     protected function defineDefault()
     {
         if ($this->request === null) {
-            $this->request = Request::capture();
+            $this->request = app(Request::class);
         }
 
         if ($this->primary === null) {

@@ -49,7 +49,7 @@ abstract class BaseScope implements ScopeInterface
      *
      * @return array
      */
-    protected function hasArray($content)
+    public function hasArray($content = [])
     {
         if (is_array($content)) {
             return $content;

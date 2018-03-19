@@ -1,10 +1,11 @@
 <?php
+
 namespace Goopil\RestFilter\Tests\Utils;
 
 use Illuminate\Database\Eloquent\Model;
 
-class TestModel extends Model {
-
+class TestModel extends Model
+{
     protected $table = 'test';
 
     protected $fillable = [

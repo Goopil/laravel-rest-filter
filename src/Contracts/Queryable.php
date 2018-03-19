@@ -1,18 +1,21 @@
 <?php
+
 namespace Goopil\RestFilter\Contracts;
+
 use Goopil\RestFilter\Scopes\FullScopes;
 
 /**
- * Trait Queryable
- * @package Goopil\RestFilter\Contracts
+ * Trait Queryable.
+ *
  * @mixin \Illuminate\Database\Eloquent\Model
  */
-trait Queryable {
+trait Queryable
+{
     /**
-     * boot method
+     * boot method.
      */
     public static function bootQueryable()
     {
-        static::addGlobalScope(new FullScopes);
+        static::addGlobalScope(new FullScopes());
     }
 }

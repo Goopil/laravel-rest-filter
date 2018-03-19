@@ -61,5 +61,4 @@ class FilterTest extends BaseTestCase
 
         $this->assertEquals($models->toArray(), $decoded);
     }
-
 }

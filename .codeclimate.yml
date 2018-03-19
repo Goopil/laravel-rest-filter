@@ -18,6 +18,7 @@ ratings:
     - "**.php"
 
 exclude_paths:
+  - "./tests/**"
   - "**.md"
   - "**.json"
   - "**.xml"

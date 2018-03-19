@@ -2,46 +2,45 @@
 
 namespace Goopil\RestFilter\Scopes;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Goopil\RestFilter\Contracts\Searchable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class SearchScope
- * @package Goopil\RestFilter\Scopes
+ * Class SearchScope.
  */
 class SearchScope extends BaseScope
 {
     /**
-     * valid db conditions
+     * valid db conditions.
      *
      * @var array
      */
     protected $acceptedConditions;
 
     /**
-     * default db condition when not set
+     * default db condition when not set.
      *
      * @var string
      */
     protected $defaultCondition;
 
     /**
-     * force where query symbol
+     * force where query symbol.
      *
      * @var string
      */
     protected $forceWhereSymbol;
 
     /**
-     * searchable fields
+     * searchable fields.
      *
      * @var
      */
     protected $validFields;
 
     /**
-     * model table
+     * model table.
      *
      * @var string
      */
@@ -54,13 +53,13 @@ class SearchScope extends BaseScope
 
     /**
      * @param Builder $builder
-     * @param Model $model
+     * @param Model   $model
      *
      * @return Builder
      */
     public function apply(Builder $builder, Model $model)
     {
-        if ( ! $model instanceof Searchable) {
+        if (!$model instanceof Searchable) {
             return $builder;
         }
 
@@ -72,24 +71,24 @@ class SearchScope extends BaseScope
     }
 
     /**
-     * @param Builder $builder
+     * @param Builder    $builder
      * @param Searchable $model
      *
      * @return $this|Builder
      */
     protected function handle(Builder $builder, Searchable $model)
     {
-        $search            = $this->request->get(config('queryScope.search.searchParam', 'search'), null);
+        $search = $this->request->get(config('queryScope.search.searchParam', 'search'), null);
         $this->validFields = $model::searchable();
 
-        if ($search === null || ! is_array($this->validFields) || count($this->validFields) < 1) {
+        if ($search === null || !is_array($this->validFields) || count($this->validFields) < 1) {
             return $builder;
         }
 
-        $this->model          = new $model;
+        $this->model = new $model();
         $this->modelTableName = $this->model->getTable();
-        $fieldsByType         = $this->parseQuery($search);
-        $isFirstField         = true;
+        $fieldsByType = $this->parseQuery($search);
+        $isFirstField = true;
 
         return $builder->where(function (Builder $query) use ($fieldsByType, $isFirstField) {
             foreach ($fieldsByType['and'] as $fieldName => $fieldQuery) {
@@ -109,7 +108,6 @@ class SearchScope extends BaseScope
                         $this->formatWhereClause($query, $fieldName, $fieldQuery);
                     }
                 }
-
             });
 
             return $query;
@@ -117,7 +115,7 @@ class SearchScope extends BaseScope
     }
 
     /**
-     * format fields from query
+     * format fields from query.
      *
      * @param mixed $query
      *
@@ -125,7 +123,7 @@ class SearchScope extends BaseScope
      */
     protected function parseQuery($query)
     {
-        $query  = $this->hasArray($query);
+        $query = $this->hasArray($query);
         $result = ['or' => [], 'and' => []];
 
         foreach ($query as $fieldName => $value) {
@@ -144,7 +142,7 @@ class SearchScope extends BaseScope
     }
 
     /**
-     * parse condition symbol and determine if force where is needed
+     * parse condition symbol and determine if force where is needed.
      *
      * @param $value
      *
@@ -152,14 +150,14 @@ class SearchScope extends BaseScope
      */
     protected function parseCondition($value)
     {
-        $segments   = explode($this->secondary, $value);
-        $condition  = $this->defaultCondition;
+        $segments = explode($this->secondary, $value);
+        $condition = $this->defaultCondition;
         $forceWhere = false;
 
         if (count($segments) > 1) {
             $tempCondition = $segments[1];
             if (str_contains($tempCondition, $this->forceWhereSymbol)) {
-                $forceWhere    = true;
+                $forceWhere = true;
                 $tempCondition = str_replace($this->forceWhereSymbol, '', $tempCondition);
             }
 
@@ -171,7 +169,7 @@ class SearchScope extends BaseScope
             [
                 'value'     => $segments[0],
                 'condition' => $condition,
-            ]
+            ],
         ];
     }
 
@@ -186,15 +184,14 @@ class SearchScope extends BaseScope
         return $parameters;
     }
 
-
     protected function formatWhereHasClause(Builder $query, $fieldName, $fieldQuery, $force = false)
     {
         foreach ($fieldQuery as $parameters) {
             $parameters = $this->mendSpecificFields($parameters);
-            $method     = $force ? 'whereHas' : 'orWhereHas';
-            $temp       = explode('.', $fieldName);
-            $relation   = $temp[0];
-            $fieldName  = $temp[1];
+            $method = $force ? 'whereHas' : 'orWhereHas';
+            $temp = explode('.', $fieldName);
+            $relation = $temp[0];
+            $fieldName = $temp[1];
 
             if (method_exists($this->model, $relation)) {
                 $query->{$method}($relation, function (Builder $query) use ($relation, $fieldName, $parameters) {
@@ -205,21 +202,20 @@ class SearchScope extends BaseScope
                     );
                 });
             } else {
-                throw new \InvalidArgumentException("Relation {$relation} not implemented in " . get_class($this->model));
+                throw new \InvalidArgumentException("Relation {$relation} not implemented in ".get_class($this->model));
             }
-
         }
 
         return $query;
     }
 
     /**
-     * parse force where symbol
+     * parse force where symbol.
      *
      * @param Builder $query
-     * @param string $fieldName
-     * @param arry $fieldQuery
-     * @param bool $force
+     * @param string  $fieldName
+     * @param arry    $fieldQuery
+     * @param bool    $force
      *
      * @return Builder
      */
@@ -227,7 +223,7 @@ class SearchScope extends BaseScope
     {
         foreach ($fieldQuery as $parameters) {
             $parameters = $this->mendSpecificFields($parameters);
-            $method     = $force ? 'where' : 'orWhere';
+            $method = $force ? 'where' : 'orWhere';
 
             $query->{$method}(
                 "{$this->modelTableName}.{$fieldName}",

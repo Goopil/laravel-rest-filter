@@ -1,18 +1,19 @@
 <?php
+
 namespace Goopil\RestFilter\Scopes;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class OffsetLimitScope
- * @package Goopil\RestFilter\Scopes
+ * Class OffsetLimitScope.
  */
 class OffsetLimitScope extends BaseScope
 {
     /**
      * @param Builder $builder
-     * @param Model $model
+     * @param Model   $model
+     *
      * @return Builder
      */
     public function apply(Builder $builder, Model $model)
@@ -31,7 +32,7 @@ class OffsetLimitScope extends BaseScope
             $value = $this->request->get($offsetKey);
             $builder = $builder->offset(is_int($value) ? $value : 0);
 
-            /**
+            /*
              * nasty work around ...
              * @see https://github.com/laravel/framework/issues/5458
              */
@@ -39,7 +40,6 @@ class OffsetLimitScope extends BaseScope
                 $builder = $builder->limit(PHP_INT_MAX);
             }
         }
-
 
         return $builder;
     }

@@ -1,18 +1,19 @@
 <?php
+
 namespace Goopil\RestFilter\Scopes;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class OrderScope
- * @package Goopil\RestFilter\Scopes
+ * Class OrderScope.
  */
 class OrderScope extends BaseScope
 {
     /**
      * @param Builder $builder
-     * @param Model $model
+     * @param Model   $model
+     *
      * @return Builder
      */
     public function apply(Builder $builder, Model $model)
@@ -38,7 +39,7 @@ class OrderScope extends BaseScope
                 }
 
                 $builder = $builder
-                    ->leftJoin($sortTable, $keyName, '=', $sortTable . $model->getKeyName())
+                    ->leftJoin($sortTable, $keyName, '=', $sortTable.$model->getKeyName())
                     ->orderBy($sortColumn, $sortedBy)
                     ->addSelect($table.'.*');
             } else {

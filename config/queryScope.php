@@ -1,4 +1,5 @@
 <?php
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -9,7 +10,7 @@ return [
     |
     */
 
-    'primarySeparator' => ';',
+    'primarySeparator'   => ';',
     'secondarySeparator' => '|',
 
     /*
@@ -18,7 +19,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'filter' => [
-        'param' => 'filter'
+        'param' => 'filter',
     ],
 
     /*
@@ -27,7 +28,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'include' => [
-        'param' => 'include'
+        'param' => 'include',
     ],
 
     /*
@@ -36,7 +37,7 @@ return [
     |--------------------------------------------------------------------------
     */
     'inNotIn' => [
-        'inParam' => 'in',
+        'inParam'    => 'in',
         'notInParam' => 'notIn',
     ],
 
@@ -47,7 +48,7 @@ return [
     */
     'offsetLimit' => [
         'offsetParam' => 'offset',
-        'limitParam' => 'limit',
+        'limitParam'  => 'limit',
     ],
 
     /*
@@ -57,7 +58,7 @@ return [
     */
     'order' => [
         'orderParam' => 'orderBy',
-        'sortParam' => 'sortBy',
+        'sortParam'  => 'sortBy',
     ],
 
     /*
@@ -66,10 +67,10 @@ return [
     |--------------------------------------------------------------------------
     */
     'search' => [
-        'searchParam' => 'search',
+        'searchParam'        => 'search',
         'acceptedConditions' => ['=', '>=', '<=', '<', '>', 'like', 'ilike'],
-        'default' => '=',
-        'forceWhere' => '!'
+        'default'            => '=',
+        'forceWhere'         => '!',
     ],
 
 ];

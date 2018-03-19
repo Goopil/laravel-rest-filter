@@ -2,18 +2,17 @@
 
 namespace Goopil\RestFilter\Scopes;
 
-use Illuminate\Database\Eloquent\Scope as ScopeInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope as ScopeInterface;
 
 /**
- * Class FullScopes
- * @package Goopil\RestFilter\Scopes
+ * Class FullScopes.
  */
 class FullScopes extends BaseScope implements ScopeInterface
 {
     /**
-     * @var array $scopes
+     * @var array
      */
     protected $scopes = [
         InNotInScope::class,
@@ -25,7 +24,7 @@ class FullScopes extends BaseScope implements ScopeInterface
     ];
 
     /**
-     * reset and set scopes to be executed
+     * reset and set scopes to be executed.
      *
      * @param $scopes string|array
      *
@@ -34,14 +33,14 @@ class FullScopes extends BaseScope implements ScopeInterface
     public function setScopes($scopes)
     {
         $this->scopes = [];
-        $scopes       = is_array($scopes) ? $scopes : func_get_args();
+        $scopes = is_array($scopes) ? $scopes : func_get_args();
         $this->assemble($scopes);
 
         return $this;
     }
 
     /**
-     * add scopes to existing ones
+     * add scopes to existing ones.
      *
      * @param $scopes string|array
      *
@@ -56,7 +55,7 @@ class FullScopes extends BaseScope implements ScopeInterface
     }
 
     /**
-     * assemble scopes
+     * assemble scopes.
      *
      * @param $scopes
      */
@@ -65,24 +64,24 @@ class FullScopes extends BaseScope implements ScopeInterface
         $errors = [];
         foreach ($scopes as $scope) {
             if ($scope instanceof ScopeInterface) {
-                if ( ! in_array($scope, $this->scopes)) {
+                if (!in_array($scope, $this->scopes)) {
                     $this->scopes[] = $scope;
                 }
             } else {
-                $errors[] = 'The class ' . get_class($scope) . 'doesn\'t implements ' . ScopeInterface::class;
+                $errors[] = 'The class '.get_class($scope).'doesn\'t implements '.ScopeInterface::class;
             }
         }
 
-        if (sizeof($errors) > 0) {
+        if (count($errors) > 0) {
             throw new \InvalidArgumentException(implode(' \n', $errors));
         }
     }
 
     /**
-     * Process scopes
+     * Process scopes.
      *
      * @param Builder $builder
-     * @param Model $model
+     * @param Model   $model
      *
      * @return Builder
      */

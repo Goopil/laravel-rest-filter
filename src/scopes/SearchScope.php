@@ -64,7 +64,6 @@ class SearchScope extends BaseScope
             return $builder;
         }
 
-        $this->defineDefault();
         $this->forceWhereSymbol = config('queryScope.search.forceWhere', '!');
         $this->acceptedConditions = config('queryScope.search.acceptedConditions', ['=', '>=', '<=', '<', '>', 'like', 'ilike']);
         $this->defaultCondition = config('queryScope.search.default', '=');

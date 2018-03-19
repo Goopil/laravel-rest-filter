@@ -68,21 +68,3 @@ pgsql:
     DB_USERNAME: test
     DB_PASSWORD: test
     COMPOSER_HOME: ./composer
-
-codequality:
-  only:
-    - merge-requests
-  stage: testing
-  image: docker:latest
-  variables:
-    DOCKER_DRIVER: overlay
-  services:
-    - docker:dind
-  allow_failure: true
-  script:
-    - echo $PWD
-    - docker pull codeclimate/codeclimate
-    - docker run --rm --env CODECLIMATE_CODE="$PWD" --volume "$PWD":/code --volume /var/run/docker.sock:/var/run/docker.sock --volume /tmp/cc:/tmp/cc codeclimate/codeclimate analyze -f json > raw_codeclimate.json
-    - cat raw_codeclimate.json | docker run -i stedolan/jq -c 'map({check_name,fingerprint,location})' > codeclimate.json
-  artifacts:
-    paths: [codeclimate.json]

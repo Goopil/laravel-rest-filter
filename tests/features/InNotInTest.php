@@ -2,8 +2,8 @@
 
 namespace Goopil\RestFilter\Tests\Features;
 
-use \Goopil\RestFilter\Tests\BaseTestCase;
-use \Goopil\RestFilter\Tests\Utils\TestModel;
+use Goopil\RestFilter\Tests\BaseTestCase;
+use Goopil\RestFilter\Tests\Utils\TestModel;
 
 class InNotInTest extends BaseTestCase
 {

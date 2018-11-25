@@ -2,7 +2,7 @@
 
 namespace Goopil\RestFilter\Tests\Utils;
 
-use \Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model;
 
 class TestRelatedModel extends Model
 {

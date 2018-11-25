@@ -13,7 +13,7 @@ class CreateTestTables extends Migration
      */
     public function up()
     {
-        if (! Schema::hasTable('test')) {
+        if (!Schema::hasTable('test')) {
             Schema::create('test', function (Blueprint $table) {
                 $table->increments('id');
                 $table->boolean('bool');

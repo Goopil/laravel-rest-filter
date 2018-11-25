@@ -2,7 +2,7 @@
 
 namespace Goopil\RestFilter\Tests\Features;
 
-use \Goopil\RestFilter\Tests\BaseTestCase;
+use Goopil\RestFilter\Tests\BaseTestCase;
 
 class PaginateTest extends BaseTestCase
 {
@@ -14,7 +14,7 @@ class PaginateTest extends BaseTestCase
         $page = 1;
 
         $decoded = $this->callEndpoint([
-            'page' => $page
+            'page' => $page,
         ]);
 
         $this->validatePageComposition($decoded, $page);
@@ -28,7 +28,7 @@ class PaginateTest extends BaseTestCase
         $page = 2;
 
         $decoded = $this->callEndpoint([
-            'page' => $page
+            'page' => $page,
         ]);
 
         $this->validatePageComposition($decoded, $page);
@@ -43,8 +43,8 @@ class PaginateTest extends BaseTestCase
         $perPage = 3;
 
         $decoded = $this->callEndpoint([
-            'page' => $page,
-            'perPage' => $perPage
+            'page'    => $page,
+            'perPage' => $perPage,
         ]);
 
         $this->validatePageComposition($decoded, $page);

@@ -2,8 +2,8 @@
 
 namespace Goopil\RestFilter\Tests\Features;
 
-use \Goopil\RestFilter\Tests\BaseTestCase;
-use \Goopil\RestFilter\Tests\Utils\TestModel;
+use Goopil\RestFilter\Tests\BaseTestCase;
+use Goopil\RestFilter\Tests\Utils\TestModel;
 
 class OrderTest extends BaseTestCase
 {
@@ -14,7 +14,7 @@ class OrderTest extends BaseTestCase
     {
         $orderBy = 'string';
 
-        $compare  = TestModel::orderBy($orderBy)->get()->toArray();
+        $compare = TestModel::orderBy($orderBy)->get()->toArray();
         $response = $this->callEndpoint([
             'orderBy' => $orderBy,
         ]);
@@ -27,13 +27,13 @@ class OrderTest extends BaseTestCase
      */
     public function itShouldReturnTheDataOrderedByStringWithSpecificSortInAscLowerCased()
     {
-        $orderBy  = 'string';
+        $orderBy = 'string';
         $sortedBy = 'asc';
 
-        $compare  = TestModel::orderBy($orderBy, $sortedBy)->get()->toArray();
+        $compare = TestModel::orderBy($orderBy, $sortedBy)->get()->toArray();
         $response = $this->callEndpoint([
             'orderBy'  => $orderBy,
-            'sortedBy' => $sortedBy
+            'sortedBy' => $sortedBy,
         ]);
 
         $this->assertEquals($compare, $response);
@@ -44,13 +44,13 @@ class OrderTest extends BaseTestCase
      */
     public function itShouldReturnTheDataOrderedByStringWithSpecificSortInAscUpperCased()
     {
-        $orderBy  = 'string';
+        $orderBy = 'string';
         $sortedBy = 'ASC';
 
-        $compare  = TestModel::orderBy($orderBy, $sortedBy)->get()->toArray();
+        $compare = TestModel::orderBy($orderBy, $sortedBy)->get()->toArray();
         $response = $this->callEndpoint([
             'orderBy'  => $orderBy,
-            'sortedBy' => $sortedBy
+            'sortedBy' => $sortedBy,
         ]);
 
         $this->assertEquals($compare, $response);
@@ -61,13 +61,13 @@ class OrderTest extends BaseTestCase
      */
     public function itShouldReturnTheDataOrderedByStringWithSortInDESCInUpperCased()
     {
-        $orderBy  = 'string';
+        $orderBy = 'string';
         $sortedBy = 'DESC';
 
-        $compare  = TestModel::orderBy($orderBy, $sortedBy)->get()->toArray();
+        $compare = TestModel::orderBy($orderBy, $sortedBy)->get()->toArray();
         $response = $this->callEndpoint([
             'orderBy'  => $orderBy,
-            'sortedBy' => $sortedBy
+            'sortedBy' => $sortedBy,
         ]);
 
         $this->assertEquals($compare, $response);
@@ -78,13 +78,13 @@ class OrderTest extends BaseTestCase
      */
     public function itShouldReturnTheDataOrderedByStringWithSortInDescLowerCased()
     {
-        $orderBy  = 'string';
+        $orderBy = 'string';
         $sortedBy = 'desc';
 
-        $compare  = TestModel::orderBy($orderBy, $sortedBy)->get()->toArray();
+        $compare = TestModel::orderBy($orderBy, $sortedBy)->get()->toArray();
         $response = $this->callEndpoint([
             'orderBy'  => $orderBy,
-            'sortedBy' => $sortedBy
+            'sortedBy' => $sortedBy,
         ]);
 
         $this->assertEquals($compare, $response);

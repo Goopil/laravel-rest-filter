@@ -15,7 +15,7 @@ trait Paginable
     {
         $columns = is_array($columns) ? $columns : func_get_args();
         $instance = new static();
-        $request = Request::capture();
+        $request = request();
 
         return $request->has('page') ?
             $instance->newQuery()->paginate($request->get('perPage', $instance->getPerPage()), $columns) :

@@ -7,11 +7,11 @@
 
 # Rest api scopes
 This package map some usual REST query filters to [Eloquent](https://laravel.com/docs/5.3/eloquent) scopes.
-This is mainly an extract of the filters present in [andersao/l5-repository](https://github.com/andersao/l5-repository). but attachable to the model itself not via repositories.  
-A big thanks to the previous contributors for their great work ;)  
+This is mainly an extract of the filters present in [andersao/l5-repository](https://github.com/andersao/l5-repository). but attachable to the model itself not via repositories.
+A big thanks to the previous contributors for their great work ;)
 
-it consist of different scopes & an execution heap to ease the registration. you can register any scope individually or use the heap to register them all.  
-head up: if you use them individually, the Request is a mandatory constructor parameter. 
+it consist of different scopes & an execution heap to ease the registration. you can register any scope individually or use the heap to register them all.
+head up: if you use them individually, the Request is a mandatory constructor parameter.
 
 * [Search](#search)
 * [Filter](#filter)
@@ -20,33 +20,25 @@ head up: if you use them individually, the Request is a mandatory constructor pa
 * [Pagination](#pagination)
 * [In / not in](#in-notin)
 * [Range selector](#range-selector)
-* 
+*
 
-you can use [qs](https://github.com/ljharb/qs) to ease the parameters formating
+you can use [qs](https://github.com/ljharb/qs) to ease the parameters formatting
 
 ## installation
-clone the repo and define a deploy key in the repo options then:
+install the package
 
-add to `composer.json` (don't forget )
+`composer require goopil/eloquent-rest-filter`
 
-```json
-"repositories": [
-    {
-        "type": "git",
-        "url": "git@gitlab.com:goopil/lib/laravel/rest-filter.git" // change path with yours
-    }
-],
-"require": {
-    "goopil/rest-filter: "dev-master",
-}
-```
-
+> for laravel <= 5.3
 add `\Goopil\RestFilter\RestScopeProvider::class` to use the config file
 
+## publish config
 you can publish it with
 `php artisan vendor:publish --provider="Goopil\RestFilter\RestScopeProvider" --tag=config`
 
 ## declaration
+To register all defined query Scopes, you can define the scopes for each query or on the controller to work on a routes basis.
+
 ### In Controllers
 ```php
 use App\User;
@@ -54,7 +46,7 @@ use Goopil\RestFilter\RestScopes\Scopes\FullScope;
 
 MyController extends Controller
 {
-    public function __construct() 
+    public function __construct()
     {
         // global constructor registration
         User::addGlobalScope(new FullScope);
@@ -62,11 +54,11 @@ MyController extends Controller
 
     public function index (MyCustomRequest $r)
     {
-        // you can pass the current request if you use it in your context and specify  
+        // you can pass the current request if you use it in your context and specify
         the separator used for this controller only
         User::addGlobalScope(new FullScope($r, ';', '|'));
-        
-        // or the request will automaticaly be fetched if none are provided. 
+
+        // or the request will automaticaly be fetched if none are provided.
         User::addGlobalScope(new FullScope);
 
         return response()->json([
@@ -76,29 +68,39 @@ MyController extends Controller
  }
 ```
 
-
 ### In Models
+
+> manually
+
 ```php
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Goopil\RestFilter\RestScopes\Scopes\FullScope;
 
 MyModel extends Eloquent
 {
-    public static function boot () 
+    public static function boot ()
     {
         parent::boot();
         static::addGlobalScope(new FullScope);
     }
 }
 ```
+> via a trait
 
-you can also use `Goopil\RestFilter\Contracts\Queryable` Trait    
-which will hook itself in the Eloquent boot process to register the filters.
+```php
+use Illuminate\Database\Eloquent\Model as Eloquent;
+use Goopil\RestFilter\Contracts\Queryable;
+
+MyModel extends Eloquent
+{
+    use Queryable;
+}
+```
 
 # query syntax
 ### parameters format
-The parameters support array parameters.  
-`http://exemple.com/api/v1/users?search[1]=John&search[2]=Tom`  
+The parameters support array parameters.
+`http://exemple.com/api/v1/users?search[1]=John&search[2]=Tom`
 
 ### delimiter
 | value | function |
@@ -144,10 +146,10 @@ By default or where clause ar implemented if you want to force a where close, yo
 `http://exemple.com/api/v1/users?search[name]=John%20Doe&search[email]=john@gmail.com`
 
 ##### multi fields search with per field comparison operator
-`http://exemple.com/api/v1/users?search[name]=john&search;like&search[email].com;like`  
+`http://exemple.com/api/v1/users?search[name]=john&search;like&search[email].com;like`
 
 ##### multi fields search with per field comparison operator and force where parameter
-`http://exemple.com/api/v1/users?search[name]=john&search;like&search[email].com;!like` 
+`http://exemple.com/api/v1/users?search[name]=john&search;like&search[email].com;!like`
 
 ## filter
 `http://exemple.com/api/v1/users?filter=id;name`
@@ -165,20 +167,20 @@ By default or where clause ar implemented if you want to force a where close, yo
 | sortedBy | string | {desc}
 
 ## include
-`http://exemple.com/api/v1/users?include=roles`   
-`http://exemple.com/api/v1/users?include=roles;sessions`  
-`http://exemple.com/api/v1/users?include=roles.permissions;sessions`  
+`http://exemple.com/api/v1/users?include=roles`
+`http://exemple.com/api/v1/users?include=roles;sessions`
+`http://exemple.com/api/v1/users?include=roles.permissions;sessions`
 
 | name | type | format |
 | :---: | :---: | :---: |
 | include | string | {field1} ; {value1}
 
 ## pagination
-The `Goopil\RestFilter\Contracts\Paginable` rewrite the static `all()` method  
+The `Goopil\RestFilter\Contracts\Paginable` rewrite the static `all()` method
 to parse the request for `page` & `perPage` params and call the `paginate()` method instead if needed.
- 
-`http://exemple.com/api/v1/users?page=1`  
-`http://exemple.com/api/v1/users?page=1&perPage=20`  
+
+`http://exemple.com/api/v1/users?page=1`
+`http://exemple.com/api/v1/users?page=1&perPage=20`
 
 | name | type | default |
 | :---: | :---: | :---: |
@@ -210,10 +212,10 @@ as per laravel pagination
 
 | name | type | format
 | :---: | :---: |  :---: |
-| in | ids | string with delimiter or array of int 
+| in | ids | string with delimiter or array of int
 
 ##### exclusive in notIn filter
-The `notIn` array has precedence over the `in` array  
+The `notIn` array has precedence over the `in` array
 `http://exemple.com/api/v1/users?in=1;2;3;4;5;6&notIn=2`
 
 ```json
@@ -230,9 +232,9 @@ The `notIn` array has precedence over the `in` array
 | notIn | id | string with delimiter or array of int
 
 ## range selector
-`http://exemple.com/api/v1/users?offset=10`  
-`http://exemple.com/api/v1/users?limit=20`  
-`http://exemple.com/api/v1/users?offset=10&limit=20`  
+`http://exemple.com/api/v1/users?offset=10`
+`http://exemple.com/api/v1/users?limit=20`
+`http://exemple.com/api/v1/users?offset=10&limit=20`
 
 | name | field | format | default
 | :---: | :---: | :---: | :---: |

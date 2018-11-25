@@ -58,7 +58,7 @@ return [
     */
     'order' => [
         'orderParam' => 'orderBy',
-        'sortParam'  => 'sortBy',
+        'sortParam'  => 'sortedBy',
     ],
 
     /*

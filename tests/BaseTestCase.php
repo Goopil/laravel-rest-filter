@@ -2,11 +2,11 @@
 
 namespace Goopil\RestFilter\Tests;
 
-use \Goopil\RestFilter\Scopes\FullScopes;
-use \Goopil\RestFilter\Tests\Utils\TestModel;
-use \Goopil\RestFilter\Tests\Utils\TestRelatedModel;
-use \Illuminate\Database\Eloquent\Collection;
-use \Orchestra\Testbench\TestCase as base;
+use Goopil\RestFilter\Scopes\FullScopes;
+use Goopil\RestFilter\Tests\Utils\TestModel;
+use Goopil\RestFilter\Tests\Utils\TestRelatedModel;
+use Illuminate\Database\Eloquent\Collection;
+use Orchestra\Testbench\TestCase as base;
 
 /**
  * base class for test suite.
@@ -32,7 +32,7 @@ abstract class BaseTestCase extends base
         $this->artisan('migrate:refresh');
 
         /**
-         * @var $models Collection
+         * @var Collection
          */
         $models = factory(TestModel::class, 20)->create();
 

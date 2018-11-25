@@ -2,8 +2,8 @@
 
 namespace Goopil\RestFilter\Tests\Features;
 
-use \Goopil\RestFilter\Tests\BaseTestCase;
-use \Goopil\RestFilter\Tests\Utils\TestModel;
+use Goopil\RestFilter\Tests\BaseTestCase;
+use Goopil\RestFilter\Tests\Utils\TestModel;
 
 class IncludeTest extends BaseTestCase
 {
@@ -12,7 +12,7 @@ class IncludeTest extends BaseTestCase
      */
     public function ItShouldReturnTheModelWithTheRelatedModelDataEagerLoaded()
     {
-        $compare  = TestModel::with('related')->get()->toArray();
+        $compare = TestModel::with('related')->get()->toArray();
         $response = $this->callEndpoint([
             'include' => 'related',
         ]);
@@ -25,7 +25,7 @@ class IncludeTest extends BaseTestCase
      */
     public function ItShouldNotReturnAnyRelatedModelWhenATheRelationDosntExist()
     {
-        $compare  = TestModel::all()->toArray();
+        $compare = TestModel::all()->toArray();
         $response = $this->callEndpoint([
             'include' => 'relatedas',
         ]);

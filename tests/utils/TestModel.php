@@ -2,8 +2,8 @@
 
 namespace Goopil\RestFilter\Tests\Utils;
 
-use \Goopil\RestFilter\Contracts\Paginable;
-use \Illuminate\Database\Eloquent\Model;
+use Goopil\RestFilter\Contracts\Paginable;
+use Illuminate\Database\Eloquent\Model;
 
 class TestModel extends Model
 {

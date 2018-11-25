@@ -2,14 +2,11 @@
 
 namespace Goopil\RestFilter\Tests\Utils;
 
-use \Goopil\RestFilter\Contracts\Paginable;
 use \Illuminate\Database\Eloquent\Model;
 
-class TestModel extends Model
+class TestRelatedModel extends Model
 {
-    use Paginable;
-
-    protected $table = 'test';
+    protected $table = 'test_related';
 
     protected $fillable = [
         'bool',
@@ -26,9 +23,4 @@ class TestModel extends Model
         'date',
         'time',
     ];
-
-    public function related()
-    {
-        return $this->hasMany(TestRelatedModel::class);
-    }
 }

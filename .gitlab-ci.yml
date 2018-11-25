@@ -19,10 +19,13 @@ cache:
     - docker-php-ext-enable xdebug
     - docker-php-ext-enable pdo pdo_mysql pdo_pgsql
 
-    - composer self-update
     - composer install --no-suggest --no-progress
-    - mkdir ./database
     - touch ./database.sqlite
+    - composer dump-autoload -o
+    - php -v
+    - composer -V
+    - composer show 'laravel/framework' | grep 'versions' | grep -o -E '\*\ .+' | cut -d' ' -f2 | cut -d',' -f1;
+    - composer show 'orchestra/testbench' | grep 'versions' | grep -o -E '\*\ .+' | cut -d' ' -f2 | cut -d',' -f1;
 
   script:
     - composer test
@@ -40,7 +43,7 @@ sqlite:
 mysql:
   <<: *common_script
   services:
-  - mysql:latest
+  - mysql:5.7
   variables:
     MYSQL_DATABASE: test
     MYSQL_ROOT_PASSWORD: secret

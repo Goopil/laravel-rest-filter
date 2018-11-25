@@ -2,7 +2,7 @@
 
 namespace Goopil\RestFilter\Tests\Features;
 
-use Goopil\RestFilter\Tests\BaseTestCase;
+use \Goopil\RestFilter\Tests\BaseTestCase;
 
 class OffsetLimitTest extends BaseTestCase
 {

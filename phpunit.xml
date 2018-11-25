@@ -9,8 +9,8 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="feature">
-            <directory suffix=".php">./tests</directory>
+        <testsuite name="Package Test Suite">
+            <directory suffix="Test.php">./tests/</directory>
         </testsuite>
     </testsuites>
     <filter>
@@ -18,5 +18,4 @@
             <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
-
 </phpunit>

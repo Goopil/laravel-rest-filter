@@ -1,32 +1,88 @@
 language: php
 
+services:
+- mysql
+- postgresql
+
 cache:
   directories:
   - $HOME/.composer/cache
 
+env:
+- DB_HOST=localhost DB_DATABASE=test DB_PASSWORD=
+
 matrix:
   fast_finish: true
   include:
+  # mysql
   - php: 7.1
-    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' COMPOSER_FLAGS='--prefer-lowest'
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' COMPOSER_FLAGS='--prefer-lowest' DB_CONNECTION=mysql DB_USERNAME=root
   - php: 7.1
-    env: LARAVEL='5.5.*' TESTBENCH='3.5.*'
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=mysql DB_USERNAME=root
   - php: 7.1
-    env: LARAVEL='5.6.*' TESTBENCH='3.6.*'
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=mysql DB_USERNAME=root
   - php: 7.1
-    env: LARAVEL='5.7.*' TESTBENCH='3.7.*'
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=mysql DB_USERNAME=root
+  # pgsql
+  - php: 7.1
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' COMPOSER_FLAGS='--prefer-lowest' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - php: 7.1
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - php: 7.1
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - php: 7.1
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  # sqlite
+  - php: 7.1
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' COMPOSER_FLAGS='--prefer-lowest' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
+  - php: 7.1
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
+  - php: 7.1
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - php: 7.1
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  # mysql
   - php: 7.2
-    env: LARAVEL='5.5.*' TESTBENCH='3.5.*'
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=mysql DB_USERNAME=root
   - php: 7.2
-    env: LARAVEL='5.6.*' TESTBENCH='3.6.*'
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=mysql DB_USERNAME=root
   - php: 7.2
-    env: LARAVEL='5.7.*' TESTBENCH='3.7.*'
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=mysql DB_USERNAME=root
+  # pgsql
+  - php: 7.2
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - php: 7.2
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - php: 7.2
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  # sqlite
+  - php: 7.2
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
+  - php: 7.2
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
+  - php: 7.2
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
+  # mysql
   - php: 7.3
-    env: LARAVEL='5.5.*' TESTBENCH='3.5.*'
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=mysql DB_USERNAME=root
   - php: 7.3
-    env: LARAVEL='5.6.*' TESTBENCH='3.6.*'
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=mysql DB_USERNAME=root
   - php: 7.3
-    env: LARAVEL='5.7.*' TESTBENCH='3.7.*'
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=mysql DB_USERNAME=root
+  # pgsql
+  - php: 7.3
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - php: 7.3
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - php: 7.3
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  # sqlite
+  - php: 7.3
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
+  - php: 7.3
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
+  - php: 7.3
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
 
 before_install:
 - |
@@ -44,20 +100,6 @@ before_install:
 
 install:
 - travis_retry composer update --no-interaction --no-plugins --no-suggest --prefer-source ${COMPOSER_FLAGS}
-
-services:
-- mysql
-- postgresql
-
-env:
-  global:
-  - DB_HOST=localhost DB_DATABASE=test DB_PASSWORD=
-  matrix:
-  - DB_CONNECTION=mysql DB_USERNAME=root
-  - DB_CONNECTION=pgsql DB_USERNAME=postgres
-  - DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
-
-- composer dump-autoload -o
 
 before_script:
 - php -v

@@ -89,8 +89,8 @@ abstract class BaseTestCase extends base
     protected function getPackageProviders($app)
     {
         return [
-            Goopil\RestFilter\RestScopeProvider::class,
-            Orchestra\Database\ConsoleServiceProvider::class,
+            'Goopil\RestFilter\RestScopeProvider',
+            'Orchestra\Database\ConsoleServiceProvider',
         ];
     }
 

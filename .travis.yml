@@ -10,17 +10,17 @@ services:
 - postgresql
 
 env:
-- DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
-- DB_CONNECTION=pgsql DB_HOST=localhost DB_DATABASE=test DB_USERNAME=postgres DB_PASSWORD=
 - DB_CONNECTION=mysql DB_HOST=localhost DB_DATABASE=test DB_USERNAME=root DB_PASSWORD=
+- DB_CONNECTION=pgsql DB_HOST=localhost DB_DATABASE=test DB_USERNAME=postgres DB_PASSWORD=
+- DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
 
 before_install:
 - |
-  if [ $DB_CONNECTION == 'mysql' ]; then
+  if [ $DB_CONNECTION = 'mysql' ]; then
     mysql -e "CREATE DATABASE $DB_DATABASE;";
-  elif [ $DB_CONNECTION == 'pgsql' ]; then
+  elif [ $DB_CONNECTION = 'pgsql' ]; then
     psql -c "create database $DB_DATABASE;" -U postgres;
-  elif [ $DB_CONNECTION == 'sqlite' ]; then
+  elif [ $DB_CONNECTION = 'sqlite' ]; then
     touch ./database.sqlite;
   else
     echo "invalid DB_CONNECTION: $DB_CONNECTION"

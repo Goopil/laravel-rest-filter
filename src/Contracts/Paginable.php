@@ -22,7 +22,7 @@ trait Paginable
             $instance->newQuery()->get($columns);
     }
 
-    abstract function newQuery();
+    abstract public function newQuery();
 
-    abstract function getPerPage();
+    abstract public function getPerPage();
 }

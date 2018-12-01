@@ -1,8 +1,6 @@
 language: php
 
 php:
-- 5.6
-- 7.0
 - 7.1
 - 7.2
 - 7.3
@@ -13,11 +11,14 @@ services:
 
 env:
 - DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
-- DB_CONNECTION=pgsql DB_HOST=localhost DB_DATABASE=test DB_USERNAME=test DB_PASSWORD=test
-- DB_CONNECTION=mysql DB_HOST=localhost DB_DATABASE=test DB_USERNAME=root DB_PASSWORD=root
+- DB_CONNECTION=pgsql DB_HOST=localhost DB_DATABASE=test DB_USERNAME=postgres DB_PASSWORD=
+- DB_CONNECTION=mysql DB_HOST=localhost DB_DATABASE=test DB_USERNAME=root DB_PASSWORD=
+
+before_install:
+- mysql -e "CREATE DATABASE $DB_DATABASE;"
+- psql -c "create database $DB_DATABASE;" -U postgres
 
 before_script:
-- composer self-update
 - composer install --no-suggest --no-progress --no-interaction
 - touch ./database.sqlite
 - composer dump-autoload -o

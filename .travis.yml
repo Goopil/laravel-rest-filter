@@ -96,12 +96,5 @@ install:
 - travis_retry composer update --no-interaction --no-plugins --no-suggest --prefer-source ${COMPOSER_FLAGS}
 - travis_retry composer dump-autoload -o
 
-before_script:
-- php -v
-- composer -V
-- echo $DB_CONNECTION
-- composer show 'laravel/framework' | grep 'versions' | grep -o -E '\*\ .+' | cut -d' ' -f2 | cut -d',' -f1;
-- composer show 'orchestra/testbench' | grep 'versions' | grep -o -E '\*\ .+' | cut -d' ' -f2 | cut -d',' -f1;
-
 script:
 - composer test

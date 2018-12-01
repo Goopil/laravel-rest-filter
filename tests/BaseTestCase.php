@@ -30,7 +30,6 @@ abstract class BaseTestCase extends base
 
         $this->loadMigrationsFrom(__DIR__.'/utils/migrations');
         $this->setUpDatabase($this->app);
-        $this->artisan('migrate:refresh');
 
         /**
          * @var Collection

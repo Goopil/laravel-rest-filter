@@ -9,7 +9,7 @@ cache:
   - $HOME/.composer/cache
 
 env:
-- DB_HOST=localhost DB_DATABASE=test DB_PASSWORD=
+  global: DB_HOST=localhost DB_DATABASE=test DB_PASSWORD=
 
 matrix:
   fast_finish: true

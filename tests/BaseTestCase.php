@@ -2,11 +2,13 @@
 
 namespace Goopil\RestFilter\Tests;
 
+use Illuminate\Foundation\Application;
 use Goopil\RestFilter\Scopes\FullScopes;
-use Goopil\RestFilter\Tests\Utils\TestModel;
-use Goopil\RestFilter\Tests\Utils\TestRelatedModel;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as base;
+use Goopil\RestFilter\Tests\Utils\TestModel;
+use Illuminate\Database\Eloquent\Collection;
+use Goopil\RestFilter\Tests\Utils\TestRelatedModel;
 
 /**
  * base class for test suite.
@@ -27,9 +29,8 @@ abstract class BaseTestCase extends base
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__.'/utils/migrations');
+        $this->setUpDatabase($this->app);
         $this->withFactories(__DIR__.'/utils/factories');
-        $this->artisan('migrate:refresh');
 
         /**
          * @var Collection
@@ -90,6 +91,7 @@ abstract class BaseTestCase extends base
     {
         return [
             'Goopil\RestFilter\RestScopeProvider',
+            'Orchestra\Database\ConsoleServiceProvider',
         ];
     }
 
@@ -105,5 +107,50 @@ abstract class BaseTestCase extends base
         $response = $this->call('GET', $this->baseTestRelativeUrl, $params);
 
         return json_decode($response->getContent(), true);
+    }
+
+    protected function setUpDatabase(Application $app)
+    {
+        $builder = $app['db']->connection()->getSchemaBuilder();
+
+        $builder->dropIfExists('test');
+        $builder->create('test', function (Blueprint $table) {
+            $table->increments('id');
+            $table->boolean('bool');
+
+            $table->char('char');
+            $table->string('string');
+            $table->text('text');
+
+            $table->integer('int');
+            $table->double('double');
+            $table->decimal('decimal');
+
+            $table->dateTime('datetime');
+            $table->date('date');
+            $table->time('time');
+            $table->timestamps();
+        });
+
+        $builder->dropIfExists('test_related');
+        $builder->create('test_related', function (Blueprint $table) {
+            $table->increments('id');
+            $table->boolean('bool');
+
+            $table->char('char');
+            $table->string('string');
+            $table->text('text');
+
+            $table->integer('int');
+            $table->double('double');
+            $table->decimal('decimal');
+
+            $table->dateTime('datetime');
+            $table->date('date');
+            $table->time('time');
+            $table->timestamps();
+
+            $table->unsignedInteger('test_model_id');
+        });
     }
 }

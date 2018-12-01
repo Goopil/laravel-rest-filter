@@ -2,8 +2,8 @@
 
 namespace Goopil\RestFilter\Scopes;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Scope as ScopeInterface;
 
 /**
@@ -64,7 +64,7 @@ class FullScopes extends BaseScope implements ScopeInterface
         $errors = [];
         foreach ($scopes as $scope) {
             if ($scope instanceof ScopeInterface) {
-                if (!in_array($scope, $this->scopes)) {
+                if (! in_array($scope, $this->scopes)) {
                     $this->scopes[] = $scope;
                 }
             } else {

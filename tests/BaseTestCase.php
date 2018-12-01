@@ -113,46 +113,44 @@ abstract class BaseTestCase extends base
     {
         $builder = $app['db']->connection()->getSchemaBuilder();
 
-        if (! $builder->hasTable('test')) {
-            $builder->create('test', function (Blueprint $table) {
-                $table->increments('id');
-                $table->boolean('bool');
+        $builder->dropIfExists('test');
+        $builder->create('test', function (Blueprint $table) {
+            $table->increments('id');
+            $table->boolean('bool');
 
-                $table->char('char');
-                $table->string('string');
-                $table->text('text');
+            $table->char('char');
+            $table->string('string');
+            $table->text('text');
 
-                $table->integer('int');
-                $table->double('double');
-                $table->decimal('decimal');
+            $table->integer('int');
+            $table->double('double');
+            $table->decimal('decimal');
 
-                $table->dateTime('datetime');
-                $table->date('date');
-                $table->time('time');
-                $table->timestamps();
-            });
-        }
+            $table->dateTime('datetime');
+            $table->date('date');
+            $table->time('time');
+            $table->timestamps();
+        });
 
-        if (! $builder->hasTable('test_related')) {
-            $builder->create('test_related', function (Blueprint $table) {
-                $table->increments('id');
-                $table->boolean('bool');
+        $builder->dropIfExists('test_related');
+        $builder->create('test_related', function (Blueprint $table) {
+            $table->increments('id');
+            $table->boolean('bool');
 
-                $table->char('char');
-                $table->string('string');
-                $table->text('text');
+            $table->char('char');
+            $table->string('string');
+            $table->text('text');
 
-                $table->integer('int');
-                $table->double('double');
-                $table->decimal('decimal');
+            $table->integer('int');
+            $table->double('double');
+            $table->decimal('decimal');
 
-                $table->dateTime('datetime');
-                $table->date('date');
-                $table->time('time');
-                $table->timestamps();
+            $table->dateTime('datetime');
+            $table->date('date');
+            $table->time('time');
+            $table->timestamps();
 
-                $table->unsignedInteger('test_model_id');
-            });
-        }
+            $table->unsignedInteger('test_model_id');
+        });
     }
 }

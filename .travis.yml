@@ -1,0 +1,23 @@
+language: php
+
+php:
+- 5.6
+- 7.0
+- 7.1
+- 7.2
+- 7.3
+
+services:
+- mysql
+- postgresql
+
+before_script:
+- composer self-update
+- composer install --no-suggest --no-progress --no-interaction
+- touch ./database.sqlite
+- composer dump-autoload -o
+- php -v
+- composer -V
+- composer show 'laravel/framework' | grep 'versions' | grep -o -E '\*\ .+' | cut -d' ' -f2 | cut -d',' -f1;
+- composer show 'orchestra/testbench' | grep 'versions' | grep -o -E '\*\ .+' | cut -d' ' -f2 | cut -d',' -f1;
+

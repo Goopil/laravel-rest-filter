@@ -21,4 +21,8 @@ trait Paginable
             $instance->newQuery()->paginate($request->get('perPage', $instance->getPerPage()), $columns) :
             $instance->newQuery()->get($columns);
     }
+
+    abstract function newQuery();
+
+    abstract function getPerPage();
 }

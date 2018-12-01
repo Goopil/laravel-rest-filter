@@ -2,6 +2,7 @@
 
 namespace Goopil\RestFilter\Tests;
 
+use Illuminate\Foundation\Application;
 use Goopil\RestFilter\Scopes\FullScopes;
 use Orchestra\Testbench\TestCase as base;
 use Goopil\RestFilter\Tests\Utils\TestModel;
@@ -28,7 +29,7 @@ abstract class BaseTestCase extends base
         parent::setUp();
 
         $this->loadMigrationsFrom(__DIR__.'/utils/migrations');
-        $this->withFactories(__DIR__.'/utils/factories');
+        $this->setUpDatabase($this->app);
         $this->artisan('migrate:refresh');
 
         /**
@@ -106,5 +107,52 @@ abstract class BaseTestCase extends base
         $response = $this->call('GET', $this->baseTestRelativeUrl, $params);
 
         return json_decode($response->getContent(), true);
+    }
+
+    protected function setUpDatabase(Application $app)
+    {
+        $builder = $app['db']->connection()->getSchemaBuilder();
+
+        if (! $builder->hasTable('test')) {
+            $builder->create('test', function (Blueprint $table) {
+                $table->increments('id');
+                $table->boolean('bool');
+
+                $table->char('char');
+                $table->string('string');
+                $table->text('text');
+
+                $table->integer('int');
+                $table->double('double');
+                $table->decimal('decimal');
+
+                $table->dateTime('datetime');
+                $table->date('date');
+                $table->time('time');
+                $table->timestamps();
+            });
+        }
+
+        if (! $builder->hasTable('test_related')) {
+            $builder->create('test_related', function (Blueprint $table) {
+                $table->increments('id');
+                $table->boolean('bool');
+
+                $table->char('char');
+                $table->string('string');
+                $table->text('text');
+
+                $table->integer('int');
+                $table->double('double');
+                $table->decimal('decimal');
+
+                $table->dateTime('datetime');
+                $table->date('date');
+                $table->time('time');
+                $table->timestamps();
+
+                $table->unsignedInteger('test_model_id');
+            });
+        }
     }
 }

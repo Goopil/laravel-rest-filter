@@ -3,8 +3,8 @@
 namespace Goopil\RestFilter\Tests;
 
 use Illuminate\Foundation\Application;
-use Illuminate\Database\Schema\Blueprint;
 use Goopil\RestFilter\Scopes\FullScopes;
+use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as base;
 use Goopil\RestFilter\Tests\Utils\TestModel;
 use Illuminate\Database\Eloquent\Collection;
@@ -29,8 +29,8 @@ abstract class BaseTestCase extends base
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__.'/utils/migrations');
         $this->setUpDatabase($this->app);
+        $this->withFactories(__DIR__.'/utils/factories');
 
         /**
          * @var Collection

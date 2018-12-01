@@ -3,8 +3,8 @@
 namespace Goopil\RestFilter\Tests;
 
 use Illuminate\Foundation\Application;
-use Illuminate\Database\Schema\Blueprint;
 use Goopil\RestFilter\Scopes\FullScopes;
+use Illuminate\Database\Schema\Blueprint;
 use Orchestra\Testbench\TestCase as base;
 use Goopil\RestFilter\Tests\Utils\TestModel;
 use Illuminate\Database\Eloquent\Collection;

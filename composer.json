@@ -43,7 +43,8 @@
     },
     "scripts": {
         "win-test": "vendor\\bin\\phpunit --debug --coverage-text",
-        "test": "vendor/bin/phpunit --coverage-text --colors=never --bootstrap=./vendor/autoload.php"
+        "test": "vendor/bin/phpunit --coverage-text --colors=never --bootstrap=./vendor/autoload.php",
+        "ci-test": "vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

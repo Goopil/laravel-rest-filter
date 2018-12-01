@@ -91,4 +91,7 @@ install:
 - travis_retry composer dump-autoload -o
 
 script:
-- composer test
+- composer ci-test
+
+after_success:
+- php vendor/bin/coveralls -v

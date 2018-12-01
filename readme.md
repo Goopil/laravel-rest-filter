@@ -1,6 +1,6 @@
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://gitlab.com/goopil/lib/laravel/rest-filter/blob/master/LICENSE)
-[![pipeline status](https://gitlab.com/goopil/lib/laravel/rest-filter/badges/master/pipeline.svg)](https://gitlab.com/goopil/lib/laravel/rest-filter/commits/master)
-[![coverage report](https://gitlab.com/goopil/lib/laravel/rest-filter/badges/master/coverage.svg)](https://gitlab.com/goopil/lib/laravel/rest-filter/commits/master)
+[![Build Status](https://travis-ci.org/Goopil/laravel-rest-filter.svg?branch=master)](https://travis-ci.org/Goopil/laravel-rest-filter)
+[![Coverage Status](https://coveralls.io/repos/github/Goopil/laravel-rest-filter/badge.svg?branch=master)](https://coveralls.io/github/Goopil/laravel-rest-filter?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Goopil/laravel-rest-filter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Goopil/laravel-rest-filter/?branch=master)
 [![StyleCI](https://styleci.io/repos/125917556/shield?branch=master)](https://styleci.io/repos/125917556)
 [![Maintainability](https://api.codeclimate.com/v1/badges/045909a491e073dbf16e/maintainability)](https://codeclimate.com/github/Goopil/laravel-rest-filter/maintainability)

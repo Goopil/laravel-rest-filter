@@ -4,6 +4,10 @@ services:
 - mysql
 - postgresql
 
+branches:
+  only:
+  - master
+
 cache:
   directories:
   - $HOME/.composer/cache

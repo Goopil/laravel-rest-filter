@@ -89,7 +89,8 @@ abstract class BaseTestCase extends base
     protected function getPackageProviders($app)
     {
         return [
-            'Goopil\RestFilter\RestScopeProvider',
+            Goopil\RestFilter\RestScopeProvider::class,
+            Orchestra\Database\ConsoleServiceProvider::class,
         ];
     }
 
@@ -105,15 +106,5 @@ abstract class BaseTestCase extends base
         $response = $this->call('GET', $this->baseTestRelativeUrl, $params);
 
         return json_decode($response->getContent(), true);
-    }
-
-    protected function loadMigrationsFrom($paths)
-    {
-        $paths = (is_array($paths)) ? $paths : [$paths];
-        $this->app->afterResolving('migrator', function ($migrator) use ($paths) {
-            foreach ((array)$paths as $path) {
-                $migrator->path($path);
-            }
-        });
     }
 }

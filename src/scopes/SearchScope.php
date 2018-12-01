@@ -2,9 +2,9 @@
 
 namespace Goopil\RestFilter\Scopes;
 
-use Goopil\RestFilter\Contracts\Searchable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Goopil\RestFilter\Contracts\Searchable;
 
 /**
  * Class SearchScope.
@@ -59,7 +59,7 @@ class SearchScope extends BaseScope
      */
     public function apply(Builder $builder, Model $model)
     {
-        if (!$model instanceof Searchable) {
+        if (! $model instanceof Searchable) {
             return $builder;
         }
 
@@ -81,7 +81,7 @@ class SearchScope extends BaseScope
         $search = $this->request->get(config('queryScope.search.searchParam', 'search'), null);
         $this->validFields = $model::searchable();
 
-        if ($search === null || !is_array($this->validFields) || count($this->validFields) < 1) {
+        if ($search === null || ! is_array($this->validFields) || count($this->validFields) < 1) {
             return $builder;
         }
 

@@ -16,11 +16,11 @@ env:
 
 before_install:
 - |
-  if [ $DB_CONNECTION === 'mysql' ]; then
+  if [ $DB_CONNECTION == 'mysql' ]; then
     mysql -e "CREATE DATABASE $DB_DATABASE;";
-  elif [ $DB_CONNECTION === 'pgsql' ]; then
+  elif [ $DB_CONNECTION == 'pgsql' ]; then
     psql -c "create database $DB_DATABASE;" -U postgres;
-  elif [ $DB_CONNECTION === 'sqlite' ]; then
+  elif [ $DB_CONNECTION == 'sqlite' ]; then
     touch ./database.sqlite;
   else
     echo "invalid DB_CONNECTION: $DB_CONNECTION"

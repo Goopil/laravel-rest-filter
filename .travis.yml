@@ -9,7 +9,8 @@ cache:
   - $HOME/.composer/cache
 
 env:
-  global: DB_HOST=localhost DB_DATABASE=test DB_PASSWORD=
+  global:
+  - DB_HOST=localhost DB_DATABASE=test DB_PASSWORD=
 
 matrix:
   fast_finish: true
@@ -110,6 +111,3 @@ before_script:
 
 script:
 - composer test
-
-after_success:
-- travis_retry php vendor/bin/php-coveralls

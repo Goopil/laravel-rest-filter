@@ -10,9 +10,12 @@ services:
 - postgresql
 
 env:
-- DB_CONNECTION=mysql DB_HOST=localhost DB_DATABASE=test DB_USERNAME=root DB_PASSWORD=
-- DB_CONNECTION=pgsql DB_HOST=localhost DB_DATABASE=test DB_USERNAME=postgres DB_PASSWORD=
-- DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
+  global:
+  - DB_HOST=localhost DB_DATABASE=test DB_PASSWORD=
+  matrix:
+  - DB_CONNECTION=mysql DB_USERNAME=root
+  - DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
 
 before_install:
 - |
@@ -29,6 +32,7 @@ before_install:
 install:
 - composer install --no-suggest --no-progress --no-interaction
 - composer dump-autoload -o
+- mkdir -p build/logs
 
 before_script:
 - php -v
@@ -37,3 +41,8 @@ before_script:
 - composer show 'laravel/framework' | grep 'versions' | grep -o -E '\*\ .+' | cut -d' ' -f2 | cut -d',' -f1;
 - composer show 'orchestra/testbench' | grep 'versions' | grep -o -E '\*\ .+' | cut -d' ' -f2 | cut -d',' -f1;
 
+script:
+- composer test
+
+after_success:
+- travis_retry php vendor/bin/php-coveralls

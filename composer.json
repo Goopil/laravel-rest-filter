@@ -45,6 +45,8 @@
         "win-test": "vendor\\bin\\phpunit --debug --coverage-text",
         "test": "vendor/bin/phpunit --coverage-text --colors=never --bootstrap=./vendor/autoload.php"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
         "sort-packages": true
     },

@@ -10,7 +10,9 @@ cache:
 
 env:
   global:
-  - DB_HOST=localhost DB_DATABASE=test DB_PASSWORD=
+  - DB_HOST=localhost
+  - DB_DATABASE=test
+  - DB_PASSWORD=
 
 matrix:
   fast_finish: true

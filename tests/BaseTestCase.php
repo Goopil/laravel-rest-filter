@@ -3,10 +3,10 @@
 namespace Goopil\RestFilter\Tests;
 
 use Goopil\RestFilter\Scopes\FullScopes;
-use Orchestra\Testbench\TestCase as base;
 use Goopil\RestFilter\Tests\Utils\TestModel;
-use Illuminate\Database\Eloquent\Collection;
 use Goopil\RestFilter\Tests\Utils\TestRelatedModel;
+use Illuminate\Database\Eloquent\Collection;
+use Orchestra\Testbench\TestCase as base;
 
 /**
  * base class for test suite.
@@ -27,8 +27,8 @@ abstract class BaseTestCase extends base
     {
         parent::setUp();
 
-        $this->loadMigrationsFrom(__DIR__.'/utils/migrations');
-        $this->withFactories(__DIR__.'/utils/factories');
+        $this->loadMigrationsFrom(__DIR__ . '/utils/migrations');
+        $this->withFactories(__DIR__ . '/utils/factories');
         $this->artisan('migrate:refresh');
 
         /**
@@ -105,5 +105,15 @@ abstract class BaseTestCase extends base
         $response = $this->call('GET', $this->baseTestRelativeUrl, $params);
 
         return json_decode($response->getContent(), true);
+    }
+
+    protected function loadMigrationsFrom($paths)
+    {
+        $paths = (is_array($paths)) ? $paths : [$paths];
+        $this->app->afterResolving('migrator', function ($migrator) use ($paths) {
+            foreach ((array)$paths as $path) {
+                $migrator->path($path);
+            }
+        });
     }
 }

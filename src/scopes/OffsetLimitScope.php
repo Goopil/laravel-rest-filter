@@ -36,7 +36,7 @@ class OffsetLimitScope extends BaseScope
              * nasty work around ...
              * @see https://github.com/laravel/framework/issues/5458
              */
-            if ($hasLimit == false) {
+            if ($hasLimit === false) {
                 $builder = $builder->limit(PHP_INT_MAX);
             }
         }

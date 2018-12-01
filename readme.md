@@ -1,3 +1,4 @@
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/goopil/eloquent-rest-filter.svg?style=flat-square)](https://packagist.org/packages/goopil/eloquent-rest-filter)
 [![License](https://poser.pugx.org/laravel/framework/license.svg)](https://gitlab.com/goopil/lib/laravel/rest-filter/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/Goopil/laravel-rest-filter.svg?branch=master)](https://travis-ci.org/Goopil/laravel-rest-filter)
 [![Coverage Status](https://coveralls.io/repos/github/Goopil/laravel-rest-filter/badge.svg?branch=master)](https://coveralls.io/github/Goopil/laravel-rest-filter?branch=master)

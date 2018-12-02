@@ -72,7 +72,6 @@ class FullScopeTest extends BaseTestCase
         $this->assertEquals([new $singleScopeAsString()], $this->getProtectedProperty('scopes'));
     }
 
-
     /**
      * @test
      */
@@ -126,7 +125,6 @@ class FullScopeTest extends BaseTestCase
 
         $defaultScopes = $this->getProtectedProperty('scopes');
         array_push($defaultScopes, $scope);
-
 
         $this->testedClass->addScopes($scope);
 

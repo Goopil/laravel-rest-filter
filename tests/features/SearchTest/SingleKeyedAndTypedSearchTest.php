@@ -12,7 +12,7 @@ class SingleKeyedAndTypedSearchTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnStringAttribute()
     {
-        $first   = TestModel::first();
+        $first = TestModel::first();
         $compare = TestModel::where('string', $first->string)->get()->toArray();
 
         $response = $this->callEndpoint([
@@ -27,7 +27,7 @@ class SingleKeyedAndTypedSearchTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnCharAttribute()
     {
-        $first   = TestModel::first();
+        $first = TestModel::first();
         $compare = TestModel::where('char', $first->char)->get()->toArray();
 
         $response = $this->callEndpoint([
@@ -42,7 +42,7 @@ class SingleKeyedAndTypedSearchTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnBoolAttribute()
     {
-        $first   = TestModel::first();
+        $first = TestModel::first();
         $compare = TestModel::where('bool', $first->bool)->get()->toArray();
 
         $response = $this->callEndpoint([
@@ -57,7 +57,7 @@ class SingleKeyedAndTypedSearchTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnIntAttribute()
     {
-        $first   = TestModel::first();
+        $first = TestModel::first();
         $compare = TestModel::where('int', $first->int)->get()->toArray();
 
         $response = $this->callEndpoint([
@@ -72,7 +72,7 @@ class SingleKeyedAndTypedSearchTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnDoubleAttribute()
     {
-        $first   = TestModel::first();
+        $first = TestModel::first();
         $compare = TestModel::where('double', $first->double)->get()->toArray();
 
         $response = $this->callEndpoint([
@@ -87,7 +87,7 @@ class SingleKeyedAndTypedSearchTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnDecimalAttribute()
     {
-        $first   = TestModel::first();
+        $first = TestModel::first();
         $compare = TestModel::where('decimal', $first->decimal)->get()->toArray();
 
         $response = $this->callEndpoint([
@@ -102,7 +102,7 @@ class SingleKeyedAndTypedSearchTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnDatetimeAttribute()
     {
-        $first   = TestModel::first();
+        $first = TestModel::first();
         $compare = TestModel::where('datetime', $first->datetime)->get()->toArray();
 
         $response = $this->callEndpoint([
@@ -117,7 +117,7 @@ class SingleKeyedAndTypedSearchTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnDateAttribute()
     {
-        $first   = TestModel::first();
+        $first = TestModel::first();
         $compare = TestModel::where('date', $first->date)->get()->toArray();
 
         $response = $this->callEndpoint([
@@ -132,7 +132,7 @@ class SingleKeyedAndTypedSearchTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnTimeAttribute()
     {
-        $first   = TestModel::first();
+        $first = TestModel::first();
         $compare = TestModel::where('time', $first->time)->get()->toArray();
 
         $response = $this->callEndpoint([

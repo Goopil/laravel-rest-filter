@@ -106,7 +106,7 @@ class SingleKeyedAndTypedSearchTest extends BaseTestCase
         $compare = TestModel::where('datetime', $first->datetime)->get()->toArray();
 
         $response = $this->callEndpoint([
-            'search' => ['datetime' => $first->datetime],
+            'search' => ['datetime' => $first->toArray()['datetime']],
         ]);
 
         $this->assertEquals($compare, $response);
@@ -121,7 +121,7 @@ class SingleKeyedAndTypedSearchTest extends BaseTestCase
         $compare = TestModel::where('date', $first->date)->get()->toArray();
 
         $response = $this->callEndpoint([
-            'search' => ['date' => $first->date],
+            'search' => ['date' => $first->toArray()['date']],
         ]);
 
         $this->assertEquals($compare, $response);

@@ -2,6 +2,7 @@
 
 namespace Goopil\RestFilter\Scopes;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Goopil\RestFilter\Contracts\Searchable;
@@ -173,13 +174,20 @@ class SearchScope extends BaseScope
         ];
     }
 
-    protected function mendSpecificFields($parameters)
+    protected function mendSpecificFields($parameters, $model = null, $fieldName = '')
     {
-        if (in_array($parameters['condition'], ['like', 'ilike'])) {
-            $parameters['value'] = "%{$parameters['value']}%";
-        }
+        if ($model !== null) {
+            $model->{$fieldName} = $parameters['value'];
+            $parameters['value'] = $model->{$fieldName};
 
-        // todo: implements check with casts typing from model
+            if ($parameters['value'] instanceof Carbon) {
+                $parameters['value'] = $parameters['value']->toJson();
+            }
+
+            if (in_array($parameters['condition'], ['like', 'ilike'])) {
+                $parameters['value'] = "%{$parameters['value']}%";
+            }
+        }
 
         return $parameters;
     }
@@ -187,11 +195,17 @@ class SearchScope extends BaseScope
     protected function formatWhereHasClause(Builder $query, $fieldName, $fieldQuery, $force = false)
     {
         foreach ($fieldQuery as $parameters) {
-            $parameters = $this->mendSpecificFields($parameters);
             $method = $force ? 'whereHas' : 'orWhereHas';
             $temp = explode('.', $fieldName);
             $relation = $temp[0];
             $fieldName = $temp[1];
+            $parameters = $this->mendSpecificFields($parameters, $this->model->{$relation}()->getModel(), $fieldName);
+
+            dump('params', $parameters);
+
+            if ($parameters === null) {
+                continue;
+            }
 
             if (method_exists($this->model, $relation)) {
                 $query->{$method}($relation, function (Builder $query) use ($relation, $fieldName, $parameters) {
@@ -222,8 +236,14 @@ class SearchScope extends BaseScope
     protected function formatWhereClause(Builder $query, $fieldName, $fieldQuery, $force = false)
     {
         foreach ($fieldQuery as $parameters) {
-            $parameters = $this->mendSpecificFields($parameters);
             $method = $force ? 'where' : 'orWhere';
+            $parameters = $this->mendSpecificFields($parameters, $this->model, $fieldName);
+
+            dump('params', $parameters);
+
+            if ($parameters === null) {
+                continue;
+            }
 
             $query->{$method}(
                 "{$this->modelTableName}.{$fieldName}",

@@ -121,7 +121,7 @@ class SingleKeyedAndTypedSearchOnRelationTest extends BaseTestCase
         })->get()->toArray();
 
         $response = $this->callEndpoint([
-            'search' => ['related.datetime' => $first->datetime],
+            'search' => ['related.datetime' => $first->toArray()['datetime']],
         ]);
 
         $this->assertEquals($compare, $response);
@@ -138,7 +138,7 @@ class SingleKeyedAndTypedSearchOnRelationTest extends BaseTestCase
         })->get()->toArray();
 
         $response = $this->callEndpoint([
-            'search' => ['related.date' => $first->date],
+            'search' => ['related.date' => $first->toArray()['date']],
         ]);
 
         $this->assertEquals($compare, $response);

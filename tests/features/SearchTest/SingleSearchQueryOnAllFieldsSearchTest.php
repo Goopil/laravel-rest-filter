@@ -110,7 +110,7 @@ class SingleSearchQueryOnAllFieldsSearchTest extends BaseTestCase
         $compare = TestModel::where('datetime', $first->datetime)->get()->toArray();
 
         $response = $this->callEndpoint([
-            'search' => $first->datetime,
+            'search' => $first->toArray()['datetime'],
         ]);
 
         $this->assertEquals($compare, $response);
@@ -125,7 +125,7 @@ class SingleSearchQueryOnAllFieldsSearchTest extends BaseTestCase
         $compare = TestModel::where('date', $first->date)->get()->toArray();
 
         $response = $this->callEndpoint([
-            'search' => $first->date,
+            'search' => $first->toArray()['date'],
         ]);
 
         $this->assertEquals($compare, $response);

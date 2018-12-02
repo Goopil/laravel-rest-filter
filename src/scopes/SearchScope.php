@@ -2,9 +2,9 @@
 
 namespace Goopil\RestFilter\Scopes;
 
-use Goopil\RestFilter\Contracts\Searchable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Goopil\RestFilter\Contracts\Searchable;
 
 /**
  * Class SearchScope.

@@ -8,6 +8,8 @@ class TestRelatedModel extends Model
 {
     protected $table = 'test_related';
 
+    protected $dates = ['datetime', 'date', 'time'];
+
     protected $fillable = [
         'bool',
 
@@ -22,5 +24,18 @@ class TestRelatedModel extends Model
         'datetime',
         'date',
         'time',
+    ];
+
+    protected $casts = [
+        'bool' => 'bool',
+        'char' => 'char',
+        'string' => 'string',
+        'text' => 'text',
+        'int' => 'int',
+        'double' => 'double',
+        'decimal' => 'decimal',
+        'datetime' => 'datetime',
+        'date' => 'date',
+        'time' => 'time',
     ];
 }

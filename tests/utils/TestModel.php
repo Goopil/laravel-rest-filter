@@ -12,6 +12,8 @@ class TestModel extends Model implements Searchable
 
     protected $table = 'test';
 
+    protected $dates = ['datetime', 'date', 'time'];
+
     protected $fillable = [
         'bool',
 

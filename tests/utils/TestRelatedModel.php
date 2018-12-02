@@ -23,17 +23,17 @@ class TestRelatedModel extends Model
         'date',
         'time',
     ];
-//
-//    protected $casts = [
-//        'bool' => 'bool',
-//        'char' => 'char',
-//        'string' => 'string',
-//        'text' => 'text',
-//        'int' => 'int',
-//        'double' => 'double',
-//        'decimal' => 'decimal',
-//        'datetime' => 'datetime',
-//        'date' => 'date',
-//        'time' => 'time',
-//    ];
+
+    protected $casts = [
+        'bool' => 'bool',
+        'char' => 'char',
+        'string' => 'string',
+        'text' => 'text',
+        'int' => 'int',
+        'double' => 'double',
+        'decimal' => 'double',
+        'datetime' => 'datetime',
+        'date' => 'date',
+        'time' => 'time',
+    ];
 }

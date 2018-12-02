@@ -12,8 +12,6 @@ class TestModel extends Model implements Searchable
 
     protected $table = 'test';
 
-    protected $dates = ['datetime', 'date', 'time'];
-
     protected $fillable = [
         'bool',
 
@@ -55,19 +53,19 @@ class TestModel extends Model implements Searchable
             'related.time',
         ];
     }
-
-    protected $casts = [
-        'bool' => 'bool',
-        'char' => 'char',
-        'string' => 'string',
-        'text' => 'text',
-        'int' => 'int',
-        'double' => 'double',
-        'decimal' => 'decimal',
-        'datetime' => 'datetime',
-        'date' => 'date',
-        'time' => 'time',
-    ];
+//
+//    protected $casts = [
+//        'bool' => 'bool',
+//        'char' => 'char',
+//        'string' => 'string',
+//        'text' => 'text',
+//        'int' => 'int',
+//        'double' => 'double',
+//        'decimal' => 'decimal',
+//        'datetime' => 'datetime',
+//        'date' => 'date',
+//        'time' => 'time',
+//    ];
 
     public function related()
     {

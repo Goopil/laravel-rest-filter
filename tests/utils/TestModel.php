@@ -53,6 +53,7 @@ class TestModel extends Model implements Searchable
             'related.time',
         ];
     }
+
 //
 //    protected $casts = [
 //        'bool' => 'bool',

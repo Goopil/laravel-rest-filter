@@ -1,12 +1,12 @@
 <?php
-
-namespace Goopil\RestFilter\Tests\Features;
-
-use Goopil\RestFilter\Tests\BaseTestCase;
-use Goopil\RestFilter\Tests\Utils\TestModel;
-
-class SingleSearchQueryOnAllFieldsSearchTest extends BaseTestCase
-{
+//
+//namespace Goopil\RestFilter\Tests\Features;
+//
+//use Goopil\RestFilter\Tests\BaseTestCase;
+//use Goopil\RestFilter\Tests\Utils\TestModel;
+//
+//class SingleSearchQueryOnAllFieldsSearchTest extends BaseTestCase
+//{
 //    /**
 //     * @test
 //     */
@@ -145,4 +145,4 @@ class SingleSearchQueryOnAllFieldsSearchTest extends BaseTestCase
 //
 //        $this->assertEquals($compare, $response);
 //    }
-}
+//}

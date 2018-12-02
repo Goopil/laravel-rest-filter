@@ -2,10 +2,9 @@
 
 namespace Goopil\RestFilter\Scopes;
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Goopil\RestFilter\Contracts\Searchable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class SearchScope.
@@ -179,14 +178,10 @@ class SearchScope extends BaseScope
         if ($model !== null) {
             $model->{$fieldName} = $parameters['value'];
             $parameters['value'] = $model->{$fieldName};
+        }
 
-            if ($parameters['value'] instanceof Carbon) {
-                $parameters['value'] = $parameters['value']->toJson();
-            }
-
-            if (in_array($parameters['condition'], ['like', 'ilike'])) {
-                $parameters['value'] = "%{$parameters['value']}%";
-            }
+        if (in_array($parameters['condition'], ['like', 'ilike'])) {
+            $parameters['value'] = "%{$parameters['value']}%";
         }
 
         return $parameters;

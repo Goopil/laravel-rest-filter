@@ -10,15 +10,12 @@ class TestRelatedModel extends Model
 
     protected $fillable = [
         'bool',
-
         'char',
         'string',
         'text',
-
         'int',
         'double',
         'decimal',
-
         'datetime',
         'date',
         'time',

@@ -13,8 +13,8 @@ $factory->define(\Goopil\RestFilter\Tests\Utils\TestModel::class, function (Fake
         'text'   => $faker->paragraph(10),
 
         'int'     => rand(1, 1000),
-        'double'  => $faker->randomFloat(2, 1, 1000 ),
-        'decimal' => $faker->randomFloat(5, 1, 1000 ),
+        'double'  => $faker->randomFloat(2, 1, 1000),
+        'decimal' => $faker->randomFloat(5, 1, 1000),
 
         'datetime' => $faker->dateTime(),
         'date'     => $faker->date(),

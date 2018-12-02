@@ -9,7 +9,6 @@ use Goopil\RestFilter\Scopes\SearchScope;
 use Goopil\RestFilter\Tests\BaseTestCase;
 use Illuminate\Database\Eloquent\Builder;
 
-
 class FullScopeTest extends BaseTestCase
 {
     protected $testedClass;
@@ -52,7 +51,7 @@ class FullScopeTest extends BaseTestCase
     {
         $this->testedClass = new FullScopes();
         $singleScopeAsArray = [
-            new SearchScope
+            new SearchScope,
         ];
 
         $this->testedClass->setScopes($singleScopeAsArray);
@@ -72,7 +71,6 @@ class FullScopeTest extends BaseTestCase
 
         $this->assertEquals([new $singleScopeAsString()], $this->getProtectedProperty('scopes'));
     }
-
 
     /**
      * @test
@@ -119,8 +117,7 @@ class FullScopeTest extends BaseTestCase
     public function ItShouldAddANewScopeToTheheap()
     {
         $this->testedClass = new FullScopes();
-        $scope = new class implements Scope
-        {
+        $scope = new class implements Scope {
             public function apply(Builder $builder, Model $model)
             {
             }
@@ -128,7 +125,6 @@ class FullScopeTest extends BaseTestCase
 
         $defaultScopes = $this->getProtectedProperty('scopes');
         array_push($defaultScopes, $scope);
-
 
         $this->testedClass->addScopes($scope);
 

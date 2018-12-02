@@ -54,6 +54,19 @@ class TestModel extends Model implements Searchable
         ];
     }
 
+    protected $casts = [
+        'bool' => 'bool',
+        'char' => 'char',
+        'string' => 'string',
+        'text' => 'text',
+        'int' => 'int',
+        'double' => 'double',
+        'decimal' => 'decimal',
+        'datetime' => 'datetime',
+        'date' => 'date',
+        'time' => 'time',
+    ];
+
     public function related()
     {
         return $this->hasMany(TestRelatedModel::class);

@@ -2,13 +2,12 @@
 
 namespace Goopil\RestFilter\Tests\Units;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Scope;
 use Goopil\RestFilter\Scopes\FullScopes;
 use Goopil\RestFilter\Scopes\SearchScope;
 use Goopil\RestFilter\Tests\BaseTestCase;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Scope;
-
 
 class FullScopeTest extends BaseTestCase
 {
@@ -25,7 +24,7 @@ class FullScopeTest extends BaseTestCase
      */
     protected function getProtectedProperty($property)
     {
-        $reflection          = new \ReflectionClass($this->testedClass);
+        $reflection = new \ReflectionClass($this->testedClass);
         $reflection_property = $reflection->getProperty($property);
         $reflection_property->setAccessible(true);
 
@@ -38,7 +37,7 @@ class FullScopeTest extends BaseTestCase
     public function ItShouldSetTheScopesWithAClassNameSpaceWithAnArrayAsArgument()
     {
         $this->testedClass = new FullScopes();
-        $scope             = SearchScope::class;
+        $scope = SearchScope::class;
 
         $this->testedClass->setScopes([$scope]);
 
@@ -50,9 +49,9 @@ class FullScopeTest extends BaseTestCase
      */
     public function ItShouldSetTheScopesWithAClassInstanceSpaceWithAnArrayAsArgument()
     {
-        $this->testedClass  = new FullScopes();
+        $this->testedClass = new FullScopes();
         $singleScopeAsArray = [
-            new SearchScope
+            new SearchScope,
         ];
 
         $this->testedClass->setScopes($singleScopeAsArray);
@@ -65,7 +64,7 @@ class FullScopeTest extends BaseTestCase
      */
     public function ItShouldSetTheScopesWithAClassInstanceSpaceAsASingleArgument()
     {
-        $this->testedClass   = new FullScopes();
+        $this->testedClass = new FullScopes();
         $singleScopeAsString = SearchScope::class;
 
         $this->testedClass->setScopes($singleScopeAsString);
@@ -73,13 +72,12 @@ class FullScopeTest extends BaseTestCase
         $this->assertEquals([new $singleScopeAsString()], $this->getProtectedProperty('scopes'));
     }
 
-
     /**
      * @test
      */
     public function itShouldSetTheScopeToBeAppliedOnNextRequestFeedingItAString()
     {
-        $this->testedClass   = new FullScopes();
+        $this->testedClass = new FullScopes();
         $singleScopeAsString = new SearchScope;
 
         $this->testedClass->setScopes($singleScopeAsString);
@@ -92,8 +90,8 @@ class FullScopeTest extends BaseTestCase
      */
     public function ItShouldKeepOnlyOneInstanceOfTheSameScope()
     {
-        $this->testedClass   = new FullScopes();
-        $firstScopeAsString  = new SearchScope;
+        $this->testedClass = new FullScopes();
+        $firstScopeAsString = new SearchScope;
         $secondScopeAsString = new SearchScope;
 
         $this->testedClass->setScopes([$firstScopeAsString, $secondScopeAsString]);
@@ -107,7 +105,7 @@ class FullScopeTest extends BaseTestCase
     public function ItShouldTrowAnInvalidArgumentExceptionIfWhatYouInjectIsNotAScope()
     {
         $this->testedClass = new FullScopes();
-        $scope             = new \stdClass();
+        $scope = new \stdClass();
         $this->expectException(\InvalidArgumentException::class);
 
         $this->testedClass->setScopes($scope);
@@ -118,9 +116,8 @@ class FullScopeTest extends BaseTestCase
      */
     public function ItShouldAddANewScopeToTheheap()
     {
-        $this->testedClass   = new FullScopes();
-        $scope = new class implements Scope
-        {
+        $this->testedClass = new FullScopes();
+        $scope = new class implements Scope {
             public function apply(Builder $builder, Model $model)
             {
             }
@@ -128,7 +125,6 @@ class FullScopeTest extends BaseTestCase
 
         $defaultScopes = $this->getProtectedProperty('scopes');
         array_push($defaultScopes, $scope);
-
 
         $this->testedClass->addScopes($scope);
 

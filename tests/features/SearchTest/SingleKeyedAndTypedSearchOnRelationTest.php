@@ -13,7 +13,7 @@ class SingleKeyedAndTypedSearchOnRelationTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnStringAttribute()
     {
-        $first   = TestRelatedModel::first();
+        $first = TestRelatedModel::first();
         $compare = TestModel::whereHas('related', function ($query) use ($first) {
             return $query->where('string', $first->string);
         })->get()->toArray();
@@ -30,7 +30,7 @@ class SingleKeyedAndTypedSearchOnRelationTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnCharAttribute()
     {
-        $first   = TestRelatedModel::first();
+        $first = TestRelatedModel::first();
         $compare = TestModel::whereHas('related', function ($query) use ($first) {
             return $query->where('char', $first->char);
         })->get()->toArray();
@@ -47,7 +47,7 @@ class SingleKeyedAndTypedSearchOnRelationTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnBoolAttribute()
     {
-        $first   = TestRelatedModel::first();
+        $first = TestRelatedModel::first();
         $compare = TestModel::whereHas('related', function ($query) use ($first) {
             return $query->where('bool', $first->bool);
         })->get()->toArray();
@@ -64,7 +64,7 @@ class SingleKeyedAndTypedSearchOnRelationTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnIntAttribute()
     {
-        $first   = TestRelatedModel::first();
+        $first = TestRelatedModel::first();
         $compare = TestModel::whereHas('related', function ($query) use ($first) {
             return $query->where('int', $first->int);
         })->get()->toArray();
@@ -81,7 +81,7 @@ class SingleKeyedAndTypedSearchOnRelationTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnDoubleAttribute()
     {
-        $first   = TestRelatedModel::first();
+        $first = TestRelatedModel::first();
         $compare = TestModel::whereHas('related', function ($query) use ($first) {
             return $query->where('double', $first->double);
         })->get()->toArray();
@@ -98,7 +98,7 @@ class SingleKeyedAndTypedSearchOnRelationTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnDecimalAttribute()
     {
-        $first   = TestRelatedModel::first();
+        $first = TestRelatedModel::first();
         $compare = TestModel::whereHas('related', function ($query) use ($first) {
             return $query->where('decimal', $first->decimal);
         })->get()->toArray();
@@ -115,7 +115,7 @@ class SingleKeyedAndTypedSearchOnRelationTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnDatetimeAttribute()
     {
-        $first   = TestRelatedModel::first();
+        $first = TestRelatedModel::first();
         $compare = TestModel::whereHas('related', function ($query) use ($first) {
             return $query->where('datetime', $first->datetime);
         })->get()->toArray();
@@ -132,7 +132,7 @@ class SingleKeyedAndTypedSearchOnRelationTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnDateAttribute()
     {
-        $first   = TestRelatedModel::first();
+        $first = TestRelatedModel::first();
         $compare = TestModel::whereHas('related', function ($query) use ($first) {
             return $query->where('date', $first->date);
         })->get()->toArray();
@@ -149,7 +149,7 @@ class SingleKeyedAndTypedSearchOnRelationTest extends BaseTestCase
      */
     public function ItShouldProperlyApplyTheWhereClauseOnTimeAttribute()
     {
-        $first   = TestRelatedModel::first();
+        $first = TestRelatedModel::first();
         $compare = TestModel::whereHas('related', function ($query) use ($first) {
             return $query->where('time', $first->time);
         })->get()->toArray();

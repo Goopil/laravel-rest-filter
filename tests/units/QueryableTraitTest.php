@@ -2,8 +2,8 @@
 
 namespace Goopil\RestFilter\Tests\Units;
 
-use Goopil\RestFilter\Tests\BaseTestCase;
 use Mockery as m;
+use Goopil\RestFilter\Tests\BaseTestCase;
 
 class QueryableTraitTest extends BaseTestCase
 {

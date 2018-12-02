@@ -2,9 +2,9 @@
 
 namespace Goopil\RestFilter\Tests\Utils;
 
+use Illuminate\Database\Eloquent\Model;
 use Goopil\RestFilter\Contracts\Paginable;
 use Goopil\RestFilter\Contracts\Searchable;
-use Illuminate\Database\Eloquent\Model;
 
 class TestModel extends Model implements Searchable
 {
@@ -52,10 +52,6 @@ class TestModel extends Model implements Searchable
             'related.date',
             'related.time',
         ];
-    }
-
-    public function test () {
-//        $this->related()
     }
 
     public function related()

@@ -196,7 +196,7 @@ class SearchScope extends BaseScope
             if (method_exists($this->model, $relation)) {
                 $query->{$method}($relation, function (Builder $query) use ($relation, $fieldName, $parameters) {
                     $query->where(
-                        "{$relation}.{$fieldName}",
+                        $fieldName,
                         $parameters['condition'],
                         $parameters['value']
                     );

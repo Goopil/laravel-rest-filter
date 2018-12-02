@@ -10,17 +10,27 @@ class TestRelatedModel extends Model
 
     protected $fillable = [
         'bool',
-
         'char',
         'string',
         'text',
-
         'int',
         'double',
         'decimal',
-
         'datetime',
         'date',
         'time',
+    ];
+
+    protected $casts = [
+        'bool' => 'bool',
+        'char' => 'char',
+        'string' => 'string',
+        'text' => 'text',
+        'int' => 'int',
+        'double' => 'double',
+        'decimal' => 'double',
+        'datetime' => 'datetime',
+        'date' => 'date',
+        'time' => 'time',
     ];
 }

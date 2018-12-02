@@ -63,6 +63,10 @@ class FullScopes extends BaseScope implements ScopeInterface
     {
         $errors = [];
         foreach ($scopes as $scope) {
+            if (is_string($scope)) {
+                $scope = app($scope);
+            }
+
             if ($scope instanceof ScopeInterface) {
                 if (! in_array($scope, $this->scopes)) {
                     $this->scopes[] = $scope;

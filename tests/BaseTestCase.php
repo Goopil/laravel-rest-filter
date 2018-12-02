@@ -104,7 +104,7 @@ abstract class BaseTestCase extends base
      */
     protected function callEndpoint($params = [])
     {
-        $response = $this->call('GET', $this->baseTestRelativeUrl, $params);
+        $response = $this->json('GET', $this->baseTestRelativeUrl, $params);
 
         return json_decode($response->getContent(), true);
     }

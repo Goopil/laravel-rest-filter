@@ -21,60 +21,74 @@ env:
 matrix:
   fast_finish: true
   include:
-  - php: 7.1
-    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=mysql DB_USERNAME=root
-  - php: 7.1
-    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=mysql DB_USERNAME=root
-  - php: 7.1
-    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=mysql DB_USERNAME=root
-  - php: 7.1
-    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
-  - php: 7.1
-    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
-  - php: 7.1
-    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+### php 7.1
+# sqlite
   - php: 7.1
     env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
   - php: 7.1
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
+  - php: 7.1
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
+# mysql
+  - php: 7.1
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=mysql DB_USERNAME=root
+  - php: 7.1
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=mysql DB_USERNAME=root
+  - php: 7.1
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=mysql DB_USERNAME=root
+# pgsql
+  - php: 7.1
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - php: 7.1
     env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
   - php: 7.1
     env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
-  - php: 7.2
-    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=mysql DB_USERNAME=root
-  - php: 7.2
-    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=mysql DB_USERNAME=root
-  - php: 7.2
-    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=mysql DB_USERNAME=root
-  - php: 7.2
-    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
-  - php: 7.2
-    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
-  - php: 7.2
-    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+
+## php 7.2
+# sqlite
   - php: 7.2
     env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
   - php: 7.2
     env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
   - php: 7.2
     env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
-  - php: 7.3
+# mysql
+  - php: 7.2
     env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=mysql DB_USERNAME=root
-  - php: 7.3
+  - php: 7.2
     env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=mysql DB_USERNAME=root
-  - php: 7.3
+  - php: 7.2
     env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=mysql DB_USERNAME=root
-  - php: 7.3
+# pgsql
+  - php: 7.2
     env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
-  - php: 7.3
+  - php: 7.2
     env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
-  - php: 7.3
+  - php: 7.2
     env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+
+## php 7.3
+# sqlite
   - php: 7.3
     env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
   - php: 7.3
     env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
   - php: 7.3
     env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=sqlite DB_DATABASE=./database.sqlite
+# mysql
+  - php: 7.3
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=mysql DB_USERNAME=root
+  - php: 7.3
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=mysql DB_USERNAME=root
+  - php: 7.3
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=mysql DB_USERNAME=root
+# pgsql
+  - php: 7.3
+    env: LARAVEL='5.5.*' TESTBENCH='3.5.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - php: 7.3
+    env: LARAVEL='5.6.*' TESTBENCH='3.6.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
+  - php: 7.3
+    env: LARAVEL='5.7.*' TESTBENCH='3.7.*' DB_CONNECTION=pgsql DB_USERNAME=postgres
 
 before_install:
 - |
